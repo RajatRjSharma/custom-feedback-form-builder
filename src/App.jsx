@@ -1,14 +1,15 @@
-import React from "react";
-import Button from "@mui/material/Button";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import AdminModule from "./pages/AdminModule";
+import WebsiteModule from "./pages/WebsiteModule";
 
 const App = () => {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Hello Vite + React!</h1>
-      <Button variant="contained" color="primary">
-        MUI Button
-      </Button>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="admin/*" element={<AdminModule />} />
+        <Route path="/*" element={<WebsiteModule />}></Route>
+      </Routes>
+    </Router>
   );
 };
 
