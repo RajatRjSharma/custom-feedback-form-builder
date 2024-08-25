@@ -12,10 +12,11 @@ import { db } from "../firebase/firebaseConfig";
 import { setLoader, setNotification } from "./genericSlice";
 import { NotificationType } from "../components/Notification/constants";
 
-const initialState = {
+export const initialState = {
   form: {
     active: false,
     isPublished: false,
+    publishedOn: "",
     title: "",
     listOfFields: [],
     basedOn: {

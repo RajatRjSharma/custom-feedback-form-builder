@@ -10,6 +10,7 @@ import {
   clearEditField,
   clearForm,
   getForms,
+  initialState,
   setForm,
 } from "../../../store/adminSlice";
 
@@ -64,18 +65,8 @@ const AdminDashboard = () => {
             handleSubmit={({ name }) => {
               dispatch(
                 setForm({
-                  active: true,
-                  isPublished: false,
+                  ...initialState?.form,
                   title: name,
-                  listOfFields: [],
-                  basedOn: {
-                    basedOnURL: false,
-                    url: "",
-                    basedOnDate: false,
-                    date: "",
-                    basedOnTime: false,
-                    time: "",
-                  },
                 })
               );
               setOpenDialog(false);

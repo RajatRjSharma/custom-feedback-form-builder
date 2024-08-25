@@ -97,6 +97,7 @@ const AdminForm = () => {
     let payload = {
       ...form,
       isPublished: !form?.isPublished,
+      publishedOn: !form?.isPublished ? new Date().toDateString() : "",
     };
     if (!form?.isPublished) payload.basedOn = { ...showBasedOn };
     if (form?.isPublished || validateBasedOn())
@@ -111,6 +112,7 @@ const AdminForm = () => {
           ...form,
           active: true,
           isPublished: false,
+          publishedOn: "",
           listOfFields: [],
           basedOn: {
             basedOnURL: false,

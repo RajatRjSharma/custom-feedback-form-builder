@@ -83,14 +83,17 @@ const FormCard = ({ data }) => {
             {data?.title || ""}
           </Typography>
           {data?.isPublished && (
-            <FormCardListElement title={"Submitted"} value={10} />
+            <FormCardListElement
+              title={"Submitted"}
+              value={data?.submitted || 0}
+            />
           )}
           {data?.isPublished && (
-            <FormCardListElement title={"Viewed"} value={55} />
+            <FormCardListElement title={"Viewed"} value={data?.viewed || 0} />
           )}
           <FormCardListElement
             title={"Published On"}
-            value={data?.isPublished ? "8/8/2024" : "Not Yet"}
+            value={data?.isPublished ? data?.publishedOn : "Not Yet"}
           />
         </Box>
         <Box
