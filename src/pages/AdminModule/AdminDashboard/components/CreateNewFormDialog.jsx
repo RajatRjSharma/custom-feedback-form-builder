@@ -20,6 +20,13 @@ const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
     }
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      handleDialogSubmit();
+    }
+  };
+
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogTitle variant="h6">Create Feedback Form</DialogTitle>
@@ -37,6 +44,7 @@ const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
           sx={{ width: "400px" }}
           error={!!error}
           helperText={error}
+          onKeyDown={handleKeyDown}
         />
       </DialogContent>
       <DialogActions>
@@ -50,7 +58,7 @@ const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
         </Button>
         <Button
           variant="text"
-          color="secondary"
+          color="error"
           size="medium"
           onClick={handleClose}
         >

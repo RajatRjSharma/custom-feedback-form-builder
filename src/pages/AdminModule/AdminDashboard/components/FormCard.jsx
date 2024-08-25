@@ -8,8 +8,23 @@ import {
   Typography,
 } from "@mui/material";
 import FormSvg from "../../../../assets/form.svg";
+import FormCardListElement from "../elements/FormCardListElement";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteForm } from "../../../../store/adminSlice";
 
-const FormCard = () => {
+const FormCard = ({ data }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleEdit = () => {
+    if (data?.id) navigate("/admin/form/" + data?.id);
+  };
+
+  const handleDelete = () => {
+    if (data?.id) dispatch(deleteForm(data?.id));
+  };
+
   return (
     <Card
       variant="outlined"
@@ -23,7 +38,7 @@ const FormCard = () => {
     >
       <CardHeader
         sx={{
-          backgroundColor: "#F5D563",
+          backgroundColor: data?.isPublished ? "#F5D563" : "#5578F4",
           height: "70px",
           width: "100%",
           display: "flex",
@@ -65,62 +80,18 @@ const FormCard = () => {
           <Typography
             sx={{ fontSize: "20px", color: "#000000", fontWeight: 500 }}
           >
-            Delivery
+            {data?.title || ""}
           </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "13px", color: "#8E8E8E", fontWeight: 500 }}
-            >
-              Submitted
-            </Typography>
-            <Typography
-              sx={{ fontSize: "13px", color: "#000000", fontWeight: 500 }}
-            >
-              10
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "13px", color: "#8E8E8E", fontWeight: 500 }}
-            >
-              Viewed
-            </Typography>
-            <Typography
-              sx={{ fontSize: "13px", color: "#000000", fontWeight: 500 }}
-            >
-              55
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <Typography
-              sx={{ fontSize: "13px", color: "#8E8E8E", fontWeight: 500 }}
-            >
-              Date Published
-            </Typography>
-            <Typography
-              sx={{ fontSize: "13px", color: "#000000", fontWeight: 500 }}
-            >
-              8/8/2024
-            </Typography>
-          </Box>
+          {data?.isPublished && (
+            <FormCardListElement title={"Submitted"} value={10} />
+          )}
+          {data?.isPublished && (
+            <FormCardListElement title={"Viewed"} value={55} />
+          )}
+          <FormCardListElement
+            title={"Published On"}
+            value={data?.isPublished ? "8/8/2024" : "Not Yet"}
+          />
         </Box>
         <Box
           sx={{
@@ -131,22 +102,25 @@ const FormCard = () => {
             gap: 1.5,
           }}
         >
-          <Box sx={{ display: "flex", justifyContent: "center" }}>
-            <Button
-              variant="contained"
-              color="secondary"
-              size="large"
-              sx={{ fontSize: "15px", fontWeight: 500 }}
-            >
-              VIEW SUBMISSION
-            </Button>
-          </Box>
+          {data?.isPublished && (
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                variant="contained"
+                color="secondary"
+                size="large"
+                sx={{ fontSize: "15px", fontWeight: 500 }}
+              >
+                VIEW SUBMISSION
+              </Button>
+            </Box>
+          )}
           <Box sx={{ display: "flex", gap: 1, justifyContent: "center" }}>
             <Button
               variant="contained"
               color="primary"
               size="large"
               sx={{ fontSize: "15px", fontWeight: 500 }}
+              onClick={handleEdit}
             >
               EDIT
             </Button>
@@ -155,6 +129,7 @@ const FormCard = () => {
               color="success"
               size="large"
               sx={{ fontSize: "15px", fontWeight: 500 }}
+              onClick={handleDelete}
             >
               DELETE
             </Button>

@@ -5,7 +5,7 @@ import AdminForm from "./AdminForm";
 const AdminModule = () => (
   <Routes>
     <Route path="" element={<AdminDashboard />}></Route>
-    <Route path="form/create" element={<AdminForm />}></Route>
+    <Route path="form/:id" element={<AdminForm />}></Route>
     <Route path="*" element={<Navigate to="" replace />} />
   </Routes>
 );

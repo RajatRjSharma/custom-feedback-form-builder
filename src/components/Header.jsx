@@ -2,8 +2,16 @@ import React from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Avatar } from "@mui/material";
 import logo from "../assets/logo.svg";
+import { useNavigate } from "react-router-dom";
 
-const Header = ({ showButtons = false }) => {
+const Header = ({
+  showButtons = false,
+  handlePublish,
+  handleFormSave,
+  form,
+}) => {
+  const navigate = useNavigate();
+
   return (
     <AppBar
       position="fixed"
@@ -11,9 +19,19 @@ const Header = ({ showButtons = false }) => {
     >
       <Toolbar>
         <Box
-          sx={{ display: "flex", gap: 1, flexGrow: 1, alignItems: "center" }}
+          sx={{
+            display: "flex",
+            gap: 1,
+            flexGrow: 1,
+            alignItems: "center",
+          }}
         >
-          <Avatar alt="logo" src={logo} sx={{ height: "60px" }} />
+          <Avatar
+            alt="logo"
+            src={logo}
+            sx={{ height: "60px", cursor: "pointer" }}
+            onClick={() => navigate("/admin")}
+          />
           <Typography
             variant="h6"
             color={"#262626"}
@@ -30,16 +48,18 @@ const Header = ({ showButtons = false }) => {
               color="primary"
               size="large"
               sx={{ fontSize: "15px", fontWeight: 500 }}
+              onClick={handleFormSave}
             >
-              SAVE
+              {form?.id ? "UPDATE" : "SAVE"}
             </Button>
             <Button
               variant="contained"
               color="success"
               size="large"
               sx={{ fontSize: "15px", fontWeight: 500 }}
+              onClick={handlePublish}
             >
-              PUBLISH
+              {form?.isPublished ? "UN-PUBLISH" : "PUBLISH"}
             </Button>
           </Box>
         )}
