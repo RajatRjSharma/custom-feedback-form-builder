@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import QuestionAndAnswer from "../elements/QuestionAndAnswer";
+import { formatDate } from "../../../../services/helperFunctions";
 
 const FeedBackAccordion = ({ index, submission, form }) => {
   return (
@@ -39,8 +40,8 @@ const FeedBackAccordion = ({ index, submission, form }) => {
               mr: 1,
             }}
           >
-            {new Date(submission?.userResponse?.submittedOn).toDateString() ||
-              "--"}
+            {formatDate(submission?.userResponse?.submittedOn) ||
+              "Invalid Timestamp"}
           </Typography>
         </Box>
       </AccordionSummary>

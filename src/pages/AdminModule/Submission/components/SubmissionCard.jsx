@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import FormInsights from "./FormInsights";
 import FeedBackAccordion from "./FeedBackAccordion";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../../../services/helperFunctions";
 
 const SubmissionCard = () => {
   const navigate = useNavigate();
@@ -53,8 +54,9 @@ const SubmissionCard = () => {
         <Typography
           sx={{ fontSize: "24px", color: "#FFFFFF", fontWeight: 400, mr: 1 }}
         >
-          {`Created Date : ${new Date(form?.publishedOn).toDateString()}` ||
-            "--"}
+          {`Published On : ${
+            formatDate(form?.publishedOn) || "Invalid Timestamp"
+          }`}
         </Typography>
       </Box>
       <CardContent
