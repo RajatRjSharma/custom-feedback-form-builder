@@ -52,7 +52,7 @@ const SubmissionCard = () => {
           </Typography>
         </Box>
         <Typography
-          sx={{ fontSize: "24px", color: "#FFFFFF", fontWeight: 400, mr: 1 }}
+          sx={{ fontSize: "18px", color: "#FFFFFF", fontWeight: 400, mr: 1 }}
         >
           {`Published On : ${
             formatDate(form?.publishedOn) || "Invalid Timestamp"
