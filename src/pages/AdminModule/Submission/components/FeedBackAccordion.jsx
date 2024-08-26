@@ -40,8 +40,7 @@ const FeedBackAccordion = ({ index, submission, form }) => {
               mr: 1,
             }}
           >
-            {formatDate(submission?.userResponse?.submittedOn) ||
-              "Invalid Timestamp"}
+            {formatDate(submission?.createdAt) || "Invalid Timestamp"}
           </Typography>
         </Box>
       </AccordionSummary>

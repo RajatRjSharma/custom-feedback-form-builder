@@ -1,8 +1,5 @@
 import { Box } from "@mui/material";
-import Header from "../../../components/Header";
 import { useNavigate, useParams } from "react-router-dom";
-import AsideToolBox from "./components/AsideToolBox";
-import CreateEditForm from "./components/CreateEditForm";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import {
@@ -12,8 +9,11 @@ import {
   updateForm,
   initialState,
 } from "../../../store/adminSlice";
-import { NotificationType } from "../../../components/Notification/constants";
 import { setNotification } from "../../../store/genericSlice";
+import Header from "../../../components/Header";
+import AsideToolBox from "./components/AsideToolBox";
+import CreateEditForm from "./components/CreateEditForm";
+import { NotificationType } from "../../../components/Notification/constants";
 import { isValidDate, isValidTime } from "../../../services/helperFunctions";
 
 const Form = () => {
@@ -96,7 +96,7 @@ const Form = () => {
     let payload = {
       ...form,
       isPublished: !form?.isPublished,
-      publishedOn: !form?.isPublished ? new Date().toString() : "",
+      publishedOn: !form?.isPublished ? new Date().toString() : null,
     };
     if (!form?.isPublished) payload.basedOn = { ...showBasedOn };
     if (form?.isPublished || validateBasedOn())

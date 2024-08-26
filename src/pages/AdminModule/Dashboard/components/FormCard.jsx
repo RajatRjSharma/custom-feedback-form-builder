@@ -99,7 +99,7 @@ const FormCard = ({ data }) => {
             title={"Published On"}
             value={
               data?.isPublished
-                ? new Date(data?.publishedOn)?.toDateString()
+                ? new Date(data?.publishedOn || "")?.toDateString()
                 : "Not Yet"
             }
           />

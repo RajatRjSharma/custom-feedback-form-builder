@@ -51,6 +51,7 @@ const Dashboard = () => {
             padding: "20px",
             display: "flex",
             flexWrap: "wrap",
+            justifyContent: "flex-start",
             gap: 3,
           }}
         >

@@ -9,6 +9,7 @@ import {
   addDoc,
   increment,
   updateDoc,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { setLoader, setNotification } from "./genericSlice";
@@ -19,7 +20,8 @@ const initialState = {
   currentForm: {
     active: false,
     isPublished: false,
-    publishedOn: "",
+    publishedOn: null,
+    createdAt: null,
     title: "",
     listOfFields: [],
     submitted: 0,
@@ -79,14 +81,15 @@ export const getFormsBasedOnFieldValue =
   (fieldName, fieldValue) => async (dispatch) => {
     dispatch(setLoader(true));
     try {
-      const queryForDoc = query(
+      const formsQuery = query(
         formsCollectionRef,
-        where(fieldName, "==", fieldValue)
+        where(fieldName, "==", fieldValue),
+        orderBy("createdAt", "desc")
       );
-      const data = await getDocs(queryForDoc);
+      const forms = await getDocs(formsQuery);
       dispatch(
         setPublishedForms(
-          data?.docs?.map((doc) => ({ ...doc.data(), id: doc.id })) || []
+          forms?.docs?.map((form) => ({ ...form.data(), id: form.id })) || []
         )
       );
     } catch (error) {
@@ -107,11 +110,11 @@ export const getCurrentForm = (formID) => async (dispatch) => {
   if (formID) {
     dispatch(setLoader(true));
     try {
-      const docRef = doc(db, "forms", formID);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
+      const formRef = doc(db, "forms", formID);
+      const formSnap = await getDoc(formRef);
+      if (formSnap.exists()) {
         dispatch(
-          setCurrentForm({ ...docSnap.data(), id: docSnap.id, active: true })
+          setCurrentForm({ ...formSnap.data(), id: formSnap.id, active: true })
         );
         dispatch(incrementFormFieldByOne(formID, "viewed"));
       } else {
@@ -143,7 +146,11 @@ export const addSubmission = (userResponse, formID) => async (dispatch) => {
     dispatch(setLoader(true));
     try {
       const formRef = doc(db, "forms", formID);
-      await addDoc(submissionsCollectionRef, { userResponse, form: formRef });
+      await addDoc(submissionsCollectionRef, {
+        ...userResponse,
+        form: formRef,
+        createdAt: new Date().toString(),
+      });
       dispatch(
         setNotification({
           active: true,
@@ -173,8 +180,8 @@ export const incrementFormFieldByOne =
     if (formID) {
       dispatch(setLoader(true));
       try {
-        const docRef = doc(db, "forms", formID);
-        await updateDoc(docRef, { [incrementField]: increment(1) });
+        const formRef = doc(db, "forms", formID);
+        await updateDoc(formRef, { [incrementField]: increment(1) });
       } catch (error) {
         dispatch(
           setNotification({

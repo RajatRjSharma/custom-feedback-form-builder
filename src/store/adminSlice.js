@@ -6,7 +6,7 @@ import {
   getDoc,
   doc,
   updateDoc,
-  deleteDoc,
+  orderBy,
   query,
   where,
   writeBatch,
@@ -19,7 +19,8 @@ export const initialState = {
   form: {
     active: false,
     isPublished: false,
-    publishedOn: "",
+    publishedOn: null,
+    createdAt: null,
     title: "",
     listOfFields: [],
     submitted: 0,
@@ -100,9 +101,12 @@ const submissionsCollectionRef = collection(db, "submissions");
 export const getForms = () => async (dispatch) => {
   dispatch(setLoader(true));
   try {
-    const data = await getDocs(formsCollectionRef);
+    const formsQuery = query(formsCollectionRef, orderBy("createdAt", "desc"));
+    const forms = await getDocs(formsQuery);
     dispatch(
-      setForms(data?.docs?.map((doc) => ({ ...doc.data(), id: doc.id })) || [])
+      setForms(
+        forms?.docs?.map((form) => ({ ...form.data(), id: form.id } || []))
+      )
     );
   } catch (error) {
     dispatch(
@@ -122,20 +126,25 @@ export const addForm = (form, navigate) => async (dispatch) => {
   dispatch(setLoader(true));
   try {
     delete form.active;
-    await addDoc(formsCollectionRef, form);
-    dispatch(
-      setNotification({
-        active: true,
-        message: `Form saved successfully`,
-        type: NotificationType.SUCCESS,
-      })
-    );
-    navigate("/admin");
+    await addDoc(formsCollectionRef, {
+      ...form,
+      createdAt: new Date().toString(),
+    });
+    if (navigate) {
+      dispatch(
+        setNotification({
+          active: true,
+          message: `Form saved successfully`,
+          type: NotificationType.SUCCESS,
+        })
+      );
+      navigate("/admin");
+    }
   } catch (error) {
     dispatch(
       setNotification({
         active: true,
-        message: `Error trying to add form`,
+        message: `Error trying to save form`,
         type: NotificationType.ERROR,
       })
     );
@@ -149,10 +158,12 @@ export const getForm = (formID) => async (dispatch) => {
   if (formID) {
     dispatch(setLoader(true));
     try {
-      const docRef = doc(db, "forms", formID);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        dispatch(setForm({ ...docSnap.data(), id: docSnap.id, active: true }));
+      const formRef = doc(db, "forms", formID);
+      const formSnap = await getDoc(formRef);
+      if (formSnap.exists()) {
+        dispatch(
+          setForm({ ...formSnap.data(), id: formSnap.id, active: true })
+        );
       } else {
         dispatch(
           setNotification({
@@ -183,8 +194,9 @@ export const updateForm = (formID, form, navigate) => async (dispatch) => {
     try {
       delete form.active;
       delete form.id;
-      const docRef = doc(db, "forms", formID);
-      await updateDoc(docRef, form);
+      delete form.createdAt;
+      const formRef = doc(db, "forms", formID);
+      await updateDoc(formRef, form);
       if (navigate) {
         dispatch(
           setNotification({
@@ -216,19 +228,15 @@ export const deleteForm = (formID) => async (dispatch) => {
     dispatch(setLoader(true));
     try {
       const formRef = doc(db, "forms", formID);
-
       const submissionsQuery = query(
         submissionsCollectionRef,
         where("form", "==", formRef)
       );
-      const submissionsSnapshot = await getDocs(submissionsQuery);
-
-      submissionsSnapshot.forEach((doc) => {
-        batch.delete(doc.ref);
+      const submissionsSnap = await getDocs(submissionsQuery);
+      submissionsSnap.forEach((submission) => {
+        batch.delete(submission.ref);
       });
-
       batch.delete(formRef);
-
       await batch.commit();
       dispatch(
         setNotification({
@@ -258,17 +266,22 @@ export const getSubmissions = (formID) => async (dispatch) => {
     dispatch(setLoader(true));
     try {
       const formRef = doc(db, "forms", formID);
-      const queryForDoc = query(
+      const submissionQuery = query(
         submissionsCollectionRef,
-        where("form", "==", formRef)
+        where("form", "==", formRef),
+        orderBy("createdAt", "desc")
       );
-      const data = await getDocs(queryForDoc);
+      const submissions = await getDocs(submissionQuery);
       dispatch(
         setSubmissions(
-          data?.docs?.map((doc) => ({
-            userResponse: doc.data()?.userResponse,
-            id: doc.id,
-          })) || []
+          submissions?.docs?.map((submission) => {
+            let tempSubmission = {
+              ...submission.data(),
+              id: submission.id,
+            };
+            delete tempSubmission.form;
+            return tempSubmission;
+          })
         )
       );
     } catch (error) {

@@ -32,9 +32,7 @@ const QuestionAndAnswer = ({ question, submission }) => {
           wordWrap: "break-word",
         }}
       >
-        {`${
-          submission?.userResponse?.formResponse?.[question?.id]?.value || ""
-        }`}
+        {`${submission?.formResponse?.[question?.id]?.value || ""}`}
       </Typography>
     </Box>
   );

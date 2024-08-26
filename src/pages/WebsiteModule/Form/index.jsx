@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CustomFormDialog from "../../../components/Dialogs/CustomFormDialog";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addSubmission,
@@ -8,6 +7,7 @@ import {
   setOpenCurrentFormDialog,
 } from "../../../store/websiteSlice";
 import { setNotification } from "../../../store/genericSlice";
+import CustomFormDialog from "../../../components/Dialogs/CustomFormDialog";
 import { NotificationType } from "../../../components/Notification/constants";
 
 const Form = ({ children }) => {
@@ -57,7 +57,6 @@ const Form = ({ children }) => {
             {
               formId: currentForm?.id,
               formResponse: { ...tempAnsList },
-              submittedOn: new Date().toString(),
             },
             currentForm?.id
           )
