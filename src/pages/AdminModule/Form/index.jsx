@@ -10,16 +10,13 @@ import {
   setForm,
   addForm,
   updateForm,
+  initialState,
 } from "../../../store/adminSlice";
 import { NotificationType } from "../../../components/Notification/constants";
 import { setNotification } from "../../../store/genericSlice";
-import {
-  isValidDate,
-  isValidTime,
-  isValidURL,
-} from "../../../services/helperFunctions";
+import { isValidDate, isValidTime } from "../../../services/helperFunctions";
 
-const AdminForm = () => {
+const Form = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { form } = useSelector((state) => state.admin);
@@ -35,14 +32,11 @@ const AdminForm = () => {
   });
 
   const validateBasedOn = () => {
-    if (
-      !showBasedOn?.basedOnURL ||
-      (showBasedOn?.basedOnURL && !isValidURL(showBasedOn?.url?.trim()))
-    ) {
+    if (showBasedOn?.basedOnURL && !showBasedOn?.url?.trim()) {
       dispatch(
         setNotification({
           active: true,
-          message: `Valid based on URL is required before publish`,
+          message: `Enter valid based on URL or toggle it before publish`,
           type: NotificationType.ERROR,
         })
       );
@@ -61,18 +55,6 @@ const AdminForm = () => {
       return false;
     }
 
-    if (showBasedOn?.basedOnTime && !showBasedOn?.basedOnDate) {
-      dispatch(
-        setNotification({
-          active: true,
-          message: `Based on date is required for based on time before publish`,
-          type: NotificationType.ERROR,
-        })
-      );
-
-      return false;
-    }
-
     if (showBasedOn?.basedOnTime && !isValidTime(showBasedOn?.time?.trim())) {
       dispatch(
         setNotification({
@@ -84,6 +66,23 @@ const AdminForm = () => {
 
       return false;
     }
+
+    if (
+      !showBasedOn?.basedOnURL &&
+      !showBasedOn?.basedOnDate &&
+      !showBasedOn?.basedOnTime
+    ) {
+      dispatch(
+        setNotification({
+          active: true,
+          message: `At-least one based on is required before publish`,
+          type: NotificationType.ERROR,
+        })
+      );
+
+      return false;
+    }
+
     return true;
   };
 
@@ -97,7 +96,7 @@ const AdminForm = () => {
     let payload = {
       ...form,
       isPublished: !form?.isPublished,
-      publishedOn: !form?.isPublished ? new Date().toDateString() : "",
+      publishedOn: !form?.isPublished ? new Date().toString() : "",
     };
     if (!form?.isPublished) payload.basedOn = { ...showBasedOn };
     if (form?.isPublished || validateBasedOn())
@@ -109,19 +108,9 @@ const AdminForm = () => {
     if (id === "create") {
       dispatch(
         setForm({
-          ...form,
+          ...initialState?.form,
+          title: form?.title || "",
           active: true,
-          isPublished: false,
-          publishedOn: "",
-          listOfFields: [],
-          basedOn: {
-            basedOnURL: false,
-            url: "",
-            basedOnDate: false,
-            date: "",
-            basedOnTime: false,
-            time: "",
-          },
         })
       );
     } else if (id?.trim()) {
@@ -129,7 +118,7 @@ const AdminForm = () => {
     } else {
       navigate("/admin");
     }
-  }, [id, dispatch, navigate, getForm]);
+  }, [id, dispatch, navigate, getForm, form?.title]);
 
   useEffect(() => {
     if (form?.basedOn) {
@@ -185,4 +174,4 @@ const AdminForm = () => {
   );
 };
 
-export default AdminForm;
+export default Form;

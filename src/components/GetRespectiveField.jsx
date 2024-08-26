@@ -8,8 +8,31 @@ import SmileyRating from "./SmileyRating";
 import StarRating from "./StarRating";
 import TextArea from "./TextArea";
 
-const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
+const GetRespectiveField = ({
+  data,
+  handleDelete,
+  handleEdit,
+  isEditOn = false,
+  hideActions = false,
+  formResponse,
+  setFormResponse,
+}) => {
   const [state, setState] = useState(null);
+
+  const getFormFieldValue = (id) => formResponse?.[id]?.value || "";
+
+  const getFormFieldError = (id) => formResponse?.[id]?.error || "";
+
+  const setFormFieldValue = (id, value) => {
+    if (setFormResponse)
+      setFormResponse((_) => ({
+        ..._,
+        [id]: {
+          ...(_?.[id] || {}),
+          value,
+        },
+      }));
+  };
 
   switch (data?.type) {
     case "textarea": {
@@ -19,13 +42,15 @@ const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
           handleEdit={() => handleEdit(data)}
           handleDelete={() => handleDelete(data?.id)}
           isEditOn={isEditOn}
+          hideActions={hideActions}
         >
           <TextArea
             label={""}
             rows={4}
-            onChange={setState}
-            value={state || ""}
-            error={""}
+            onChange={(value) => data?.id && setFormFieldValue(data?.id, value)}
+            value={getFormFieldValue(data?.id) || ""}
+            error={getFormFieldError(data?.id) || ""}
+            disabled={!hideActions}
           />
         </FieldElement>
       );
@@ -37,12 +62,13 @@ const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
           handleEdit={() => handleEdit(data)}
           handleDelete={() => handleDelete(data?.id)}
           isEditOn={isEditOn}
+          hideActions={hideActions}
         >
           <NumericRating
-            value={state}
-            onChange={setState}
             length={10}
-            error={""}
+            onChange={(value) => data?.id && setFormFieldValue(data?.id, value)}
+            value={getFormFieldValue(data?.id) || null}
+            error={getFormFieldError(data?.id) || ""}
           />
         </FieldElement>
       );
@@ -54,8 +80,14 @@ const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
           handleEdit={() => handleEdit(data)}
           handleDelete={() => handleDelete(data?.id)}
           isEditOn={isEditOn}
+          hideActions={hideActions}
         >
-          <StarRating value={state} onChange={setState} length={5} error={""} />
+          <StarRating
+            length={5}
+            onChange={(value) => data?.id && setFormFieldValue(data?.id, value)}
+            value={getFormFieldValue(data?.id) || null}
+            error={getFormFieldError(data?.id) || ""}
+          />
         </FieldElement>
       );
     }
@@ -66,8 +98,13 @@ const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
           handleEdit={() => handleEdit(data)}
           handleDelete={() => handleDelete(data?.id)}
           isEditOn={isEditOn}
+          hideActions={hideActions}
         >
-          <SmileyRating value={state} onChange={setState} error={""} />
+          <SmileyRating
+            onChange={(value) => data?.id && setFormFieldValue(data?.id, value)}
+            value={getFormFieldValue(data?.id) || null}
+            error={getFormFieldError(data?.id) || ""}
+          />
         </FieldElement>
       );
     }
@@ -78,13 +115,15 @@ const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
           handleEdit={() => handleEdit(data)}
           handleDelete={() => handleDelete(data?.id)}
           isEditOn={isEditOn}
+          hideActions={hideActions}
         >
           <RadioCollection
             name={data?.title + data?.id || ""}
-            value={state}
-            onChange={setState}
             options={data?.options || []}
-            error={""}
+            onChange={(value) => data?.id && setFormFieldValue(data?.id, value)}
+            value={getFormFieldValue(data?.id) || null}
+            error={getFormFieldError(data?.id) || ""}
+            disabled={!hideActions}
           />
         </FieldElement>
       );
@@ -96,13 +135,15 @@ const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
           handleEdit={() => handleEdit(data)}
           handleDelete={() => handleDelete(data?.id)}
           isEditOn={isEditOn}
+          hideActions={hideActions}
         >
           <Input
             label={""}
             type={"text"}
-            onChange={setState}
-            value={state || ""}
-            error={""}
+            onChange={(value) => data?.id && setFormFieldValue(data?.id, value)}
+            value={getFormFieldValue(data?.id) || ""}
+            error={getFormFieldError(data?.id) || ""}
+            disabled={!hideActions}
           />
         </FieldElement>
       );
@@ -114,12 +155,13 @@ const GetRespectiveField = ({ data, handleDelete, handleEdit, isEditOn }) => {
           handleEdit={() => handleEdit(data)}
           handleDelete={() => handleDelete(data?.id)}
           isEditOn={isEditOn}
+          hideActions={hideActions}
         >
           <Category
-            value={state}
-            onChange={setState}
             options={data?.options || []}
-            error={""}
+            onChange={(value) => data?.id && setFormFieldValue(data?.id, value)}
+            value={getFormFieldValue(data?.id) || null}
+            error={getFormFieldError(data?.id) || ""}
           />
         </FieldElement>
       );

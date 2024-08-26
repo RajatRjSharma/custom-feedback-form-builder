@@ -14,7 +14,7 @@ import {
   setForm,
 } from "../../../store/adminSlice";
 
-const AdminDashboard = () => {
+const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openDialog, setOpenDialog] = useState(false);
@@ -25,6 +25,7 @@ const AdminDashboard = () => {
     dispatch(clearEditField());
     dispatch(getForms());
   }, [dispatch]);
+
   return (
     <Box
       sx={{
@@ -79,4 +80,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default Dashboard;

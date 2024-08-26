@@ -11,8 +11,9 @@ const SmileyRating = ({ value, onChange, error }) => {
       <Box
         sx={{
           display: "flex",
-          height: "40px",
+          minHeight: "40px",
           gap: 2,
+          flexWrap: "wrap",
         }}
       >
         <Avatar
@@ -22,10 +23,10 @@ const SmileyRating = ({ value, onChange, error }) => {
             height: "40px",
             width: "40px",
             cursor: "pointer",
-            backgroundColor: value === 1 ? "#849DF4" : "#FFFFFF",
-            border: value === 1 ? "2px solid #849DF4" : "none",
+            backgroundColor: value === "Angry" ? "#849DF4" : "#FFFFFF",
+            border: value === "Angry" ? "2px solid #849DF4" : "none",
           }}
-          onClick={() => onChange(1)}
+          onClick={() => onChange("Angry")}
         />
         <Avatar
           alt="face2-svg"
@@ -34,10 +35,10 @@ const SmileyRating = ({ value, onChange, error }) => {
             height: "40px",
             width: "40px",
             cursor: "pointer",
-            backgroundColor: value === 2 ? "#849DF4" : "#FFFFFF",
-            border: value === 2 ? "2px solid #849DF4" : "none",
+            backgroundColor: value === "Sad" ? "#849DF4" : "#FFFFFF",
+            border: value === "Sad" ? "2px solid #849DF4" : "none",
           }}
-          onClick={() => onChange(2)}
+          onClick={() => onChange("Sad")}
         />
         <Avatar
           alt="face3-svg"
@@ -46,10 +47,10 @@ const SmileyRating = ({ value, onChange, error }) => {
             height: "40px",
             width: "40px",
             cursor: "pointer",
-            backgroundColor: value === 3 ? "#849DF4" : "#FFFFFF",
-            border: value === 3 ? "2px solid #849DF4" : "none",
+            backgroundColor: value === "Neutral" ? "#849DF4" : "#FFFFFF",
+            border: value === "Neutral" ? "2px solid #849DF4" : "none",
           }}
-          onClick={() => onChange(3)}
+          onClick={() => onChange("Neutral")}
         />
         <Avatar
           alt="face4-svg"
@@ -58,10 +59,10 @@ const SmileyRating = ({ value, onChange, error }) => {
             height: "40px",
             width: "40px",
             cursor: "pointer",
-            backgroundColor: value === 4 ? "#849DF4" : "#FFFFFF",
-            border: value === 4 ? "2px solid #849DF4" : "none",
+            backgroundColor: value === "Happy" ? "#849DF4" : "#FFFFFF",
+            border: value === "Happy" ? "2px solid #849DF4" : "none",
           }}
-          onClick={() => onChange(4)}
+          onClick={() => onChange("Happy")}
         />
         <Avatar
           alt="face5-svg"
@@ -70,10 +71,10 @@ const SmileyRating = ({ value, onChange, error }) => {
             height: "40px",
             width: "40px",
             cursor: "pointer",
-            backgroundColor: value === 5 ? "#849DF4" : "#FFFFFF",
-            border: value === 5 ? "2px solid #849DF4" : "none",
+            backgroundColor: value === "Excited" ? "#849DF4" : "#FFFFFF",
+            border: value === "Excited" ? "2px solid #849DF4" : "none",
           }}
-          onClick={() => onChange(5)}
+          onClick={() => onChange("Excited")}
         />
       </Box>
       {error?.trim() && (
@@ -82,7 +83,6 @@ const SmileyRating = ({ value, onChange, error }) => {
             fontSize: "13px",
             color: "#d32f2f",
             fontWeight: 400,
-            ml: 2,
             mt: "2px",
           }}
         >

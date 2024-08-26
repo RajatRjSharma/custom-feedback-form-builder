@@ -46,7 +46,6 @@ const Category = ({ value, onChange, options = [], error }) => {
             fontSize: "13px",
             color: "#d32f2f",
             fontWeight: 400,
-            ml: 2,
             mt: "2px",
           }}
         >

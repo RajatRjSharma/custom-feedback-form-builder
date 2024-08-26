@@ -21,6 +21,10 @@ const FormCard = ({ data }) => {
     if (data?.id) navigate("/admin/form/" + data?.id);
   };
 
+  const handleSubmission = () => {
+    if (data?.id) navigate("/admin/submission/" + data?.id);
+  };
+
   const handleDelete = () => {
     if (data?.id) dispatch(deleteForm(data?.id));
   };
@@ -93,7 +97,11 @@ const FormCard = ({ data }) => {
           )}
           <FormCardListElement
             title={"Published On"}
-            value={data?.isPublished ? data?.publishedOn : "Not Yet"}
+            value={
+              data?.isPublished
+                ? new Date(data?.publishedOn)?.toDateString()
+                : "Not Yet"
+            }
           />
         </Box>
         <Box
@@ -112,6 +120,7 @@ const FormCard = ({ data }) => {
                 color="secondary"
                 size="large"
                 sx={{ fontSize: "15px", fontWeight: 500 }}
+                onClick={handleSubmission}
               >
                 VIEW SUBMISSION
               </Button>

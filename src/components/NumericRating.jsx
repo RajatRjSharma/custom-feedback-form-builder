@@ -8,7 +8,7 @@ const NumericRating = ({ value, onChange, length = 10, error }) => {
         sx={{
           display: "flex",
           border: "1px solid #DBD6D6",
-          height: "40px",
+          minHeight: "40px",
         }}
       >
         {Array.from({ length }, (_, i) => i + 1).map((_) => (
@@ -53,7 +53,6 @@ const NumericRating = ({ value, onChange, length = 10, error }) => {
             fontSize: "13px",
             color: "#d32f2f",
             fontWeight: 400,
-            ml: 2,
             mt: "2px",
           }}
         >

@@ -15,6 +15,7 @@ const FieldElement = ({
   handleDelete,
   children,
   isEditOn = false,
+  hideActions = false,
 }) => {
   return (
     <Card
@@ -25,6 +26,8 @@ const FieldElement = ({
         boxShadow: 2,
         borderRadius: 1,
         backgroundColor: isEditOn ? "#E1E8FF" : "#FFFFFF",
+        height: "fit-content",
+        overflow: "visible",
       }}
     >
       <CardHeader
@@ -53,38 +56,40 @@ const FieldElement = ({
       >
         {children}
       </CardContent>
-      <CardActions
-        sx={{
-          display: "flex",
-          justifyContent: "end",
-          gap: 0.5,
-          p: 1,
-          mr: 0.5,
-        }}
-      >
-        <Avatar
-          alt="edit-dark-svg"
-          src={editDarkSvg}
+      {!hideActions && (
+        <CardActions
           sx={{
-            height: "25px",
-            width: "25px",
-            borderRadius: "0",
-            cursor: "pointer",
+            display: "flex",
+            justifyContent: "end",
+            gap: 0.5,
+            p: 1,
+            mr: 0.5,
           }}
-          onClick={handleEdit}
-        />
-        <Avatar
-          alt="delete-dark-svg"
-          src={deleteDarkSvg}
-          sx={{
-            height: "25px",
-            width: "25px",
-            borderRadius: "0",
-            cursor: "pointer",
-          }}
-          onClick={handleDelete}
-        />
-      </CardActions>
+        >
+          <Avatar
+            alt="edit-dark-svg"
+            src={editDarkSvg}
+            sx={{
+              height: "25px",
+              width: "25px",
+              borderRadius: "0",
+              cursor: "pointer",
+            }}
+            onClick={handleEdit}
+          />
+          <Avatar
+            alt="delete-dark-svg"
+            src={deleteDarkSvg}
+            sx={{
+              height: "25px",
+              width: "25px",
+              borderRadius: "0",
+              cursor: "pointer",
+            }}
+            onClick={handleDelete}
+          />
+        </CardActions>
+      )}
     </Card>
   );
 };

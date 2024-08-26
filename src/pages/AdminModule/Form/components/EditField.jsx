@@ -113,7 +113,11 @@ const EditField = () => {
         autoFocus
         margin="dense"
         id={"title-edit-field"}
-        label={editField?.type === "form-title" ? "Form Title" : "Title"}
+        label={
+          editField?.type === "form-title"
+            ? "Form Title"
+            : "Title " + `(${editField?.data?.type?.toUpperCase()})`
+        }
         type={"text"}
         fullWidth
         variant="standard"

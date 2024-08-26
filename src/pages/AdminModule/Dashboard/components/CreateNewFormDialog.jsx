@@ -16,7 +16,7 @@ const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
     if (name?.trim()) {
       handleSubmit({ name });
     } else {
-      setError("Enter valid Form Name !");
+      setError("Enter valid form title");
     }
   };
 
@@ -35,7 +35,7 @@ const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
           autoFocus
           margin="dense"
           id="name"
-          label="Form Name"
+          label="Form Title"
           type="text"
           fullWidth
           variant="standard"

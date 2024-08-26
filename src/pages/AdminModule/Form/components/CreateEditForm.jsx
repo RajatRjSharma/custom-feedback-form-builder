@@ -9,8 +9,10 @@ import {
   setListOfFields,
 } from "../../../../store/adminSlice";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { useNavigate } from "react-router-dom";
 
 const CreateEditForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { form, editField } = useSelector((state) => state.admin);
 
@@ -104,7 +106,9 @@ const CreateEditForm = () => {
             height: "25px",
             width: "17px",
             borderRadius: "0",
+            cursor: "pointer",
           }}
+          onClick={() => navigate("/admin")}
         />
         <Typography
           sx={{ fontSize: "24px", color: "#FFFFFF", fontWeight: 500 }}

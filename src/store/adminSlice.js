@@ -7,6 +7,9 @@ import {
   doc,
   updateDoc,
   deleteDoc,
+  query,
+  where,
+  writeBatch,
 } from "firebase/firestore";
 import { db } from "../firebase/firebaseConfig";
 import { setLoader, setNotification } from "./genericSlice";
@@ -19,6 +22,8 @@ export const initialState = {
     publishedOn: "",
     title: "",
     listOfFields: [],
+    submitted: 0,
+    viewed: 0,
     basedOn: {
       basedOnURL: false,
       url: "",
@@ -34,6 +39,7 @@ export const initialState = {
     data: null,
   },
   forms: [],
+  submissions: [],
 };
 
 export const adminSlice = createSlice({
@@ -52,6 +58,9 @@ export const adminSlice = createSlice({
     setForms: (state, action) => {
       state.forms = action.payload;
     },
+    setSubmissions: (state, action) => {
+      state.submissions = action.payload;
+    },
     clearForm: (state) => {
       state.form = { ...initialState?.form };
     },
@@ -64,6 +73,9 @@ export const adminSlice = createSlice({
     clearForms: (state) => {
       state.forms = [];
     },
+    clearSubmissions: (state) => {
+      state.submissions = [];
+    },
   },
 });
 
@@ -72,15 +84,18 @@ export const {
   setListOfFields,
   setEditField,
   setForms,
+  setSubmissions,
   clearForm,
   clearForms,
   clearListOfFields,
   clearEditField,
+  clearSubmissions,
 } = adminSlice.actions;
 
 export default adminSlice.reducer;
 
 const formsCollectionRef = collection(db, "forms");
+const submissionsCollectionRef = collection(db, "submissions");
 
 export const getForms = () => async (dispatch) => {
   dispatch(setLoader(true));
@@ -130,11 +145,11 @@ export const addForm = (form, navigate) => async (dispatch) => {
   }
 };
 
-export const getForm = (id) => async (dispatch) => {
-  if (id) {
+export const getForm = (formID) => async (dispatch) => {
+  if (formID) {
     dispatch(setLoader(true));
     try {
-      const docRef = doc(db, "forms", id);
+      const docRef = doc(db, "forms", formID);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
         dispatch(setForm({ ...docSnap.data(), id: docSnap.id, active: true }));
@@ -162,22 +177,24 @@ export const getForm = (id) => async (dispatch) => {
   }
 };
 
-export const updateForm = (id, form, navigate) => async (dispatch) => {
-  if (id) {
+export const updateForm = (formID, form, navigate) => async (dispatch) => {
+  if (formID) {
     dispatch(setLoader(true));
     try {
       delete form.active;
       delete form.id;
-      const docRef = doc(db, "forms", id);
+      const docRef = doc(db, "forms", formID);
       await updateDoc(docRef, form);
-      dispatch(
-        setNotification({
-          active: true,
-          message: `Form updated successfully`,
-          type: NotificationType.SUCCESS,
-        })
-      );
-      navigate("/admin");
+      if (navigate) {
+        dispatch(
+          setNotification({
+            active: true,
+            message: `Form updated successfully`,
+            type: NotificationType.SUCCESS,
+          })
+        );
+        if (navigate) navigate("/admin");
+      }
     } catch (error) {
       dispatch(
         setNotification({
@@ -193,16 +210,30 @@ export const updateForm = (id, form, navigate) => async (dispatch) => {
   }
 };
 
-export const deleteForm = (id) => async (dispatch) => {
-  if (id) {
+export const deleteForm = (formID) => async (dispatch) => {
+  if (formID) {
+    const batch = writeBatch(db);
     dispatch(setLoader(true));
     try {
-      const docRef = doc(db, "forms", id);
-      await deleteDoc(docRef);
+      const formRef = doc(db, "forms", formID);
+
+      const submissionsQuery = query(
+        submissionsCollectionRef,
+        where("form", "==", formRef)
+      );
+      const submissionsSnapshot = await getDocs(submissionsQuery);
+
+      submissionsSnapshot.forEach((doc) => {
+        batch.delete(doc.ref);
+      });
+
+      batch.delete(formRef);
+
+      await batch.commit();
       dispatch(
         setNotification({
           active: true,
-          message: `Form deleted successfully`,
+          message: `Form and related submissions deleted successfully`,
           type: NotificationType.SUCCESS,
         })
       );
@@ -211,7 +242,40 @@ export const deleteForm = (id) => async (dispatch) => {
       dispatch(
         setNotification({
           active: true,
-          message: `Error trying to delete form`,
+          message: `Error trying to delete form and related submissions`,
+          type: NotificationType.ERROR,
+        })
+      );
+      console.error(error);
+    } finally {
+      dispatch(setLoader(false));
+    }
+  }
+};
+
+export const getSubmissions = (formID) => async (dispatch) => {
+  if (formID) {
+    dispatch(setLoader(true));
+    try {
+      const formRef = doc(db, "forms", formID);
+      const queryForDoc = query(
+        submissionsCollectionRef,
+        where("form", "==", formRef)
+      );
+      const data = await getDocs(queryForDoc);
+      dispatch(
+        setSubmissions(
+          data?.docs?.map((doc) => ({
+            userResponse: doc.data()?.userResponse,
+            id: doc.id,
+          })) || []
+        )
+      );
+    } catch (error) {
+      dispatch(
+        setNotification({
+          active: true,
+          message: `Error trying to get submissions list`,
           type: NotificationType.ERROR,
         })
       );

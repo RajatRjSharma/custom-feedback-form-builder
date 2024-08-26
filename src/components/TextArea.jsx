@@ -1,6 +1,13 @@
 import { TextField } from "@mui/material";
 
-const TextArea = ({ label, rows = 4, onChange, value, error }) => {
+const TextArea = ({
+  label,
+  rows = 4,
+  onChange,
+  value,
+  error,
+  disabled = false,
+}) => {
   return (
     <TextField
       label={label}
@@ -12,7 +19,13 @@ const TextArea = ({ label, rows = 4, onChange, value, error }) => {
       onChange={(e) => onChange(e.target.value)}
       error={!!error}
       helperText={error}
-      sx={{ backgroundColor: "#FFFFFF" }}
+      sx={{
+        backgroundColor: "#FFFFFF",
+        "& .MuiFormHelperText-root": {
+          marginLeft: "0px",
+        },
+      }}
+      disabled={disabled}
     />
   );
 };

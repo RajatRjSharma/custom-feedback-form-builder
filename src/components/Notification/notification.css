@@ -10,6 +10,7 @@
 }
 
 .notification {
+  font-family: Roboto, Arial, sans-serif;
   padding: 10px;
   border-radius: 5px;
   color: white;

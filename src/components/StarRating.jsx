@@ -8,8 +8,9 @@ const StarRating = ({ value, onChange, length = 5, error }) => {
       <Box
         sx={{
           display: "flex",
-          height: "40px",
+          minHeight: "40px",
           gap: 2,
+          flexWrap: "wrap",
         }}
       >
         {Array.from({ length }, (_, i) => i + 1).map((_) =>
@@ -48,7 +49,6 @@ const StarRating = ({ value, onChange, length = 5, error }) => {
             fontSize: "13px",
             color: "#d32f2f",
             fontWeight: 400,
-            ml: 2,
             mt: "2px",
           }}
         >
