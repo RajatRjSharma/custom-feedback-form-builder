@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import PropTypes from "prop-types";
 
 const Input = ({
   label,
@@ -27,6 +28,15 @@ const Input = ({
       disabled={disabled}
     />
   );
+};
+
+Input.propTypes = {
+  label: PropTypes.string,
+  type: PropTypes.oneOf(["text", "password", "email", "number", "date"]), // Specify valid input types
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default Input;

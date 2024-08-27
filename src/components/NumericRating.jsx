@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 const NumericRating = ({ value, onChange, length = 10, error }) => {
   return (
@@ -61,6 +62,13 @@ const NumericRating = ({ value, onChange, length = 10, error }) => {
       )}
     </>
   );
+};
+
+NumericRating.propTypes = {
+  value: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
+  length: PropTypes.number,
+  error: PropTypes.string,
 };
 
 export default NumericRating;

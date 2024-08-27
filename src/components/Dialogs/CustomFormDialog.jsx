@@ -7,6 +7,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import GetRespectiveField from "../GetRespectiveField";
 
 const CustomFormDialog = ({
@@ -99,6 +100,23 @@ const CustomFormDialog = ({
       )}
     </Dialog>
   );
+};
+
+CustomFormDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  form: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    listOfFields: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+      })
+    ),
+  }),
+  formResponse: PropTypes.object,
+  setFormResponse: PropTypes.func.isRequired,
 };
 
 export default CustomFormDialog;

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import useLocationChange from "../../../services/hooks/useLocationChange";
 import useDateTime from "../../../services/hooks/useDateTime";
@@ -97,7 +98,14 @@ const Form = ({ children }) => {
       console.log(publishedForms, location);
       publishedForms?.some((form) => {
         const { basedOnURL, basedOnDate, basedOnTime, url, date, time } =
-          form?.basedOn;
+          form?.basedOn || {
+            basedOnURL: false,
+            basedOnDate: false,
+            basedOnTime: false,
+            url: "",
+            date: "",
+            time: "",
+          };
         const isUrlTrue = basedOnURL ? location?.href?.includes(url) : false;
         const isDateTrue = basedOnDate
           ? isDateEqualWithCurrentDate(date)
@@ -162,6 +170,7 @@ const Form = ({ children }) => {
     completedFormIdsList,
     dateTime,
     openCurrentFormDialog,
+    dispatch,
   ]);
 
   useEffect(() => {
@@ -169,7 +178,7 @@ const Form = ({ children }) => {
       setFormResponseState([...(currentForm?.listOfFields || [])]);
       dispatch(setOpenCurrentFormDialog(true));
     }
-  }, [currentForm]);
+  }, [currentForm, dispatch]);
 
   useEffect(() => {
     return () => {
@@ -177,7 +186,7 @@ const Form = ({ children }) => {
       dispatch(clearOpenCurrentFormDialog());
       dispatch(clearPublishedForms());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <>
@@ -204,6 +213,10 @@ const Form = ({ children }) => {
         )}
     </>
   );
+};
+
+Form.propTypes = {
+  children: PropTypes.node,
 };
 
 export default Form;

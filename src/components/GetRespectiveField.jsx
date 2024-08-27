@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import Category from "./Category";
 import FieldElement from "./FieldElement";
 import Input from "./Input";
@@ -167,6 +168,21 @@ const GetRespectiveField = ({
       return <></>;
     }
   }
+};
+
+GetRespectiveField.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    options: PropTypes.arrayOf(PropTypes.string),
+  }),
+  handleDelete: PropTypes.func,
+  handleEdit: PropTypes.func,
+  isEditOn: PropTypes.bool,
+  hideActions: PropTypes.bool,
+  formResponse: PropTypes.object,
+  setFormResponse: PropTypes.func,
 };
 
 export default GetRespectiveField;

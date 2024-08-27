@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import PropTypes from "prop-types";
 
 const convertToLocal = (utcTime) => {
   const [hours, minutes] = utcTime.split(":").map(Number);
@@ -50,6 +51,14 @@ const TimeInput = ({
       onChange={handleTimeChange}
     />
   );
+};
+
+TimeInput.propTypes = {
+  label: PropTypes.string.isRequired,
+  basedOnSwitchKey: PropTypes.string.isRequired,
+  basedOnValueKey: PropTypes.string.isRequired,
+  showBasedOn: PropTypes.object.isRequired,
+  setShowBasedOn: PropTypes.func.isRequired,
 };
 
 export default TimeInput;

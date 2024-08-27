@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import AddFieldElement from "../elements/AddFieldElement";
@@ -149,6 +150,11 @@ const AddField = ({ showBasedOn, setShowBasedOn }) => {
       />
     </>
   );
+};
+
+AddField.propTypes = {
+  showBasedOn: PropTypes.object.isRequired,
+  setShowBasedOn: PropTypes.func.isRequired,
 };
 
 export default AddField;

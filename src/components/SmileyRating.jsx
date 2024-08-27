@@ -1,4 +1,5 @@
 import { Avatar, Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import face1Svg from "../assets/face1.svg";
 import face2Svg from "../assets/face2.svg";
 import face3Svg from "../assets/face3.svg";
@@ -91,6 +92,12 @@ const SmileyRating = ({ value, onChange, error }) => {
       )}
     </>
   );
+};
+
+SmileyRating.propTypes = {
+  value: PropTypes.oneOf(["Angry", "Sad", "Neutral", "Happy", "Excited"]),
+  onChange: PropTypes.func.isRequired,
+  error: PropTypes.string,
 };
 
 export default SmileyRating;

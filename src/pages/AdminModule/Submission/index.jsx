@@ -18,7 +18,7 @@ const Submission = () => {
     } else {
       navigate("/admin");
     }
-  }, [id, dispatch, navigate, getForm]);
+  }, [id, dispatch, navigate]);
 
   return (
     <Box

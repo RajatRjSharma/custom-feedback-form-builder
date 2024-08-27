@@ -77,8 +77,6 @@ const EditField = () => {
         }
         break;
       }
-      default: {
-      }
     }
   };
 

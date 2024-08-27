@@ -2,7 +2,7 @@ export const isValidURL = (url) => {
   try {
     new URL(url);
     return true;
-  } catch (e) {
+  } catch {
     return false;
   }
 };
@@ -28,7 +28,7 @@ export const formatDate = (date) => {
     });
 
     return formatter.format(new Date(date));
-  } catch (_) {
+  } catch {
     return null;
   }
 };
@@ -51,7 +51,7 @@ export const isDateEqualWithCurrentDate = (date1) => {
       return true;
     }
     return false;
-  } catch (_) {
+  } catch {
     return false;
   }
 };
@@ -74,7 +74,7 @@ export const isTimeEqualToCurrentTime = (time1) => {
       return true;
     }
     return false;
-  } catch (_) {
+  } catch {
     return false;
   }
 };

@@ -1,4 +1,5 @@
 import { Box, Switch, TextField, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import DateInput from "../../../../components/DateInput";
 import TimeInput from "../../../../components/TimeInput";
 
@@ -97,6 +98,18 @@ const BasedOnElement = ({
       {textField()}
     </Box>
   );
+};
+
+BasedOnElement.propTypes = {
+  title: PropTypes.string.isRequired,
+  showBasedOn: PropTypes.object.isRequired,
+  setShowBasedOn: PropTypes.func.isRequired,
+  basedOnSwitchKey: PropTypes.string.isRequired,
+  basedOnValueKey: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  type: PropTypes.oneOf(["text", "date", "time", "number", "email", "url"])
+    .isRequired,
+  shrink: PropTypes.object,
 };
 
 export default BasedOnElement;

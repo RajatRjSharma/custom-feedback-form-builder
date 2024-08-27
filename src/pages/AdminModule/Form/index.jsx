@@ -120,7 +120,7 @@ const Form = () => {
     } else {
       navigate("/admin");
     }
-  }, [id, dispatch, navigate, getForm, form?.title]);
+  }, [id, dispatch, navigate, form?.title]);
 
   useEffect(() => {
     if (form?.basedOn) {
@@ -133,7 +133,7 @@ const Form = () => {
       dispatch(clearForm());
       dispatch(clearEditField());
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <Box sx={{ height: "100%", width: "100%", backgroundColor: "#F3F3F3" }}>

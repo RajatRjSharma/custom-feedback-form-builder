@@ -5,6 +5,7 @@ import {
   Box,
   Typography,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import QuestionAndAnswer from "../elements/QuestionAndAnswer";
 import { formatDate } from "../../../../services/helperFunctions";
@@ -29,7 +30,7 @@ const FeedBackAccordion = ({ index, submission, form }) => {
               lineHeight: 1,
             }}
           >
-            {`Accordion ${index}`}
+            {`Feedback ${index}`}
           </Typography>
           <Typography
             sx={{
@@ -64,6 +65,20 @@ const FeedBackAccordion = ({ index, submission, form }) => {
       </AccordionDetails>
     </Accordion>
   );
+};
+
+FeedBackAccordion.propTypes = {
+  index: PropTypes.number.isRequired,
+  submission: PropTypes.shape({
+    createdAt: PropTypes.string,
+  }).isRequired,
+  form: PropTypes.shape({
+    listOfFields: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+      })
+    ),
+  }).isRequired,
 };
 
 export default FeedBackAccordion;

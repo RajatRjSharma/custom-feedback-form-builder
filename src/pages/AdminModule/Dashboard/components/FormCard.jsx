@@ -7,6 +7,7 @@ import {
   CardHeader,
   Typography,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import FormCardListElement from "../elements/FormCardListElement";
@@ -151,6 +152,17 @@ const FormCard = ({ data }) => {
       </CardContent>
     </Card>
   );
+};
+
+FormCard.propTypes = {
+  data: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    isPublished: PropTypes.bool,
+    submitted: PropTypes.number,
+    viewed: PropTypes.number,
+    publishedOn: PropTypes.string,
+  }).isRequired,
 };
 
 export default FormCard;

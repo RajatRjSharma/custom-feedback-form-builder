@@ -1,4 +1,5 @@
 import { Avatar, Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import starSvg from "../assets/star.svg";
 import starActiveSvg from "../assets/star_active.svg";
 
@@ -57,6 +58,13 @@ const StarRating = ({ value, onChange, length = 5, error }) => {
       )}
     </>
   );
+};
+
+StarRating.propTypes = {
+  value: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
+  length: PropTypes.number,
+  error: PropTypes.string,
 };
 
 export default StarRating;

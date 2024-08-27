@@ -104,9 +104,7 @@ export const getForms = () => async (dispatch) => {
     const formsQuery = query(formsCollectionRef, orderBy("createdAt", "desc"));
     const forms = await getDocs(formsQuery);
     dispatch(
-      setForms(
-        forms?.docs?.map((form) => ({ ...form.data(), id: form.id } || []))
-      )
+      setForms(forms?.docs?.map((form) => ({ ...form.data(), id: form.id })))
     );
   } catch (error) {
     dispatch(

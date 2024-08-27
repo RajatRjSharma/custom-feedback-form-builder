@@ -6,13 +6,14 @@ import {
   Box,
   Avatar,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 
 const Header = ({
   showButtons = false,
-  handlePublish,
-  handleFormSave,
+  handlePublish = () => {},
+  handleFormSave = () => {},
   form,
   showToWebsite = false,
 }) => {
@@ -83,6 +84,17 @@ const Header = ({
       </Toolbar>
     </AppBar>
   );
+};
+
+Header.propTypes = {
+  showButtons: PropTypes.bool,
+  handlePublish: PropTypes.func,
+  handleFormSave: PropTypes.func,
+  form: PropTypes.shape({
+    id: PropTypes.string,
+    isPublished: PropTypes.bool,
+  }),
+  showToWebsite: PropTypes.bool,
 };
 
 export default Header;

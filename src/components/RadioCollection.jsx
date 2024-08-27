@@ -1,4 +1,5 @@
 import { FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 const RadioCollection = ({
   name,
@@ -39,6 +40,15 @@ const RadioCollection = ({
       )}
     </>
   );
+};
+
+RadioCollection.propTypes = {
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string).isRequired,
+  error: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default RadioCollection;

@@ -1,4 +1,5 @@
 import { Avatar, Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import plusSvg from "../../../../assets/plus.svg";
 
 const AddFieldElement = ({
@@ -53,6 +54,14 @@ const AddFieldElement = ({
       />
     </Box>
   );
+};
+
+AddFieldElement.propTypes = {
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  isSmallSize: PropTypes.bool,
+  initialData: PropTypes.object,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default AddFieldElement;

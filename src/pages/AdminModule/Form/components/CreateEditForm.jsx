@@ -52,7 +52,7 @@ const CreateEditForm = () => {
       sourceIndex < fieldListLength &&
       destinationIndex < fieldListLength
     ) {
-      const tempFieldList = [...form?.listOfFields];
+      const tempFieldList = [...(form?.listOfFields || [])];
       const dragItemField = tempFieldList[sourceIndex];
       if (dragItemField.id === result.draggableId) {
         let tempUpdateFieldList = [...tempFieldList];

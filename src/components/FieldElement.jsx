@@ -6,6 +6,7 @@ import {
   CardHeader,
   Typography,
 } from "@mui/material";
+import PropTypes from "prop-types";
 import editDarkSvg from "../assets/edit_dark.svg";
 import deleteDarkSvg from "../assets/delete_dark.svg";
 
@@ -92,6 +93,15 @@ const FieldElement = ({
       )}
     </Card>
   );
+};
+
+FieldElement.propTypes = {
+  title: PropTypes.string,
+  handleEdit: PropTypes.func,
+  handleDelete: PropTypes.func,
+  children: PropTypes.node,
+  isEditOn: PropTypes.bool,
+  hideActions: PropTypes.bool,
 };
 
 export default FieldElement;

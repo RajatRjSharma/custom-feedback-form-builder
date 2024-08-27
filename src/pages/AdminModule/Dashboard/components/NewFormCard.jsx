@@ -1,4 +1,5 @@
 import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import Plus from "../../../../assets/plus.svg";
 
 const NewFormCard = ({ handleClick }) => {
@@ -46,6 +47,10 @@ const NewFormCard = ({ handleClick }) => {
       </CardContent>
     </Card>
   );
+};
+
+NewFormCard.propTypes = {
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default NewFormCard;

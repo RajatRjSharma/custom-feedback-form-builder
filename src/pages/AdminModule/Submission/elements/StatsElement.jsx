@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 const StatsElement = ({ title, value }) => {
   return (
@@ -34,6 +35,11 @@ const StatsElement = ({ title, value }) => {
       </Typography>
     </Box>
   );
+};
+
+StatsElement.propTypes = {
+  title: PropTypes.string,
+  value: PropTypes.number,
 };
 
 export default StatsElement;

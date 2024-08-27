@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 import StatsElement from "../elements/StatsElement";
 
 const FormInsights = ({ submitted, viewed, basedOn }) => {
@@ -58,6 +59,19 @@ const FormInsights = ({ submitted, viewed, basedOn }) => {
       </Box>
     </Box>
   );
+};
+
+FormInsights.propTypes = {
+  submitted: PropTypes.number.isRequired,
+  viewed: PropTypes.number.isRequired,
+  basedOn: PropTypes.shape({
+    basedOnURL: PropTypes.bool,
+    url: PropTypes.string,
+    basedOnDate: PropTypes.bool,
+    date: PropTypes.string,
+    basedOnTime: PropTypes.bool,
+    time: PropTypes.string,
+  }),
 };
 
 export default FormInsights;

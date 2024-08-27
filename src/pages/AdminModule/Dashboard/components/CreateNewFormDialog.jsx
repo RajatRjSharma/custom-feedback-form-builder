@@ -7,6 +7,7 @@ import {
   TextField,
 } from "@mui/material";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
   const [name, setName] = useState("");
@@ -67,6 +68,12 @@ const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
       </DialogActions>
     </Dialog>
   );
+};
+
+CreateNewFormDialog.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default CreateNewFormDialog;

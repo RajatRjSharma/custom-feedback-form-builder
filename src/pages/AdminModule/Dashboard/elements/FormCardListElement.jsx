@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 const FormCardListElement = ({ title, value }) => {
   return (
@@ -17,6 +18,11 @@ const FormCardListElement = ({ title, value }) => {
       </Typography>
     </Box>
   );
+};
+
+FormCardListElement.propTypes = {
+  title: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 
 export default FormCardListElement;

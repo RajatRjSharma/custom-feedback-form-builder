@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import PropTypes from "prop-types";
 
 const TextArea = ({
   label,
@@ -28,6 +29,15 @@ const TextArea = ({
       disabled={disabled}
     />
   );
+};
+
+TextArea.propTypes = {
+  label: PropTypes.string,
+  rows: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+  error: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default TextArea;

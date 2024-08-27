@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 const Category = ({ value, onChange, options = [], error }) => {
   return (
@@ -53,6 +54,13 @@ const Category = ({ value, onChange, options = [], error }) => {
       )}
     </>
   );
+};
+
+Category.propTypes = {
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string),
+  error: PropTypes.string,
 };
 
 export default Category;

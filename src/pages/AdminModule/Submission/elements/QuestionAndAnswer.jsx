@@ -1,4 +1,5 @@
 import { Box, Typography } from "@mui/material";
+import PropTypes from "prop-types";
 
 const QuestionAndAnswer = ({ question, submission }) => {
   return (
@@ -36,6 +37,21 @@ const QuestionAndAnswer = ({ question, submission }) => {
       </Typography>
     </Box>
   );
+};
+
+QuestionAndAnswer.propTypes = {
+  question: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  }).isRequired,
+  submission: PropTypes.shape({
+    formResponse: PropTypes.objectOf(
+      PropTypes.shape({
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      })
+    ),
+  }).isRequired,
 };
 
 export default QuestionAndAnswer;

@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import AddField from "./AddField";
 import EditField from "./EditField";
@@ -28,6 +29,11 @@ const AsideToolBox = ({ showBasedOn, setShowBasedOn }) => {
       )}
     </Box>
   );
+};
+
+AsideToolBox.propTypes = {
+  showBasedOn: PropTypes.object.isRequired,
+  setShowBasedOn: PropTypes.func.isRequired,
 };
 
 export default AsideToolBox;
