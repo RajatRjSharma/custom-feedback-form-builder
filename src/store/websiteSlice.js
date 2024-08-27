@@ -56,7 +56,6 @@ const websiteSlice = createSlice({
       state.openCurrentFormDialog = action.payload;
     },
     setCompletedFormIdsList: (state, action) => {
-      console.log(action.payload);
       state.completedFormIdsList = [
         ...state.completedFormIdsList,
         action.payload,

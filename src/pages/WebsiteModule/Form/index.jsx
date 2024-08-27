@@ -53,25 +53,29 @@ const Form = ({ children }) => {
    *  fields and updated state to show required error msg.
    */
   const validateAnswers = () => {
-    let isValid = true;
-    let tempAnsList = { ...formResponse };
-    currentForm?.listOfFields?.forEach((_) => {
-      if (_?.id)
-        if (
-          _?.isRequired &&
-          !formResponse?.[_?.id]?.value?.toString()?.trim()
-        ) {
-          isValid = false;
-          tempAnsList[_?.id] = {
-            ...(tempAnsList[_?.id] || {}),
-            error: _?.error,
-          };
-        } else {
-          tempAnsList[_?.id] = { ...(tempAnsList[_?.id] || {}), error: "" };
-        }
-    });
-    setFormResponse(tempAnsList);
-    return { isValid, tempAnsList };
+    try {
+      let isValid = true;
+      let tempAnsList = { ...formResponse };
+      currentForm?.listOfFields?.forEach((_) => {
+        if (_?.id)
+          if (
+            _?.isRequired &&
+            !formResponse?.[_?.id]?.value?.toString()?.trim()
+          ) {
+            isValid = false;
+            tempAnsList[_?.id] = {
+              ...(tempAnsList[_?.id] || {}),
+              error: _?.error,
+            };
+          } else {
+            tempAnsList[_?.id] = { ...(tempAnsList[_?.id] || {}), error: "" };
+          }
+      });
+      setFormResponse(tempAnsList);
+      return { isValid, tempAnsList };
+    } catch {
+      return { isValid: false, tempAnsList: {} };
+    }
   };
 
   /**
@@ -116,7 +120,6 @@ const Form = ({ children }) => {
    */
   useEffect(() => {
     if (publishedForms?.length && location && !openCurrentFormDialog) {
-      console.log(publishedForms, location);
       publishedForms?.some((form) => {
         const { basedOnURL, basedOnDate, basedOnTime, url, date, time } =
           form?.basedOn || {
@@ -132,19 +135,6 @@ const Form = ({ children }) => {
           ? isDateEqualWithCurrentDate(date)
           : false;
         const isTimeTrue = basedOnTime ? isTimeEqualToCurrentTime(time) : false;
-        console.log(
-          basedOnURL,
-          basedOnDate,
-          basedOnTime,
-          url,
-          date,
-          time,
-          isUrlTrue,
-          isDateTrue,
-          isTimeTrue,
-          completedFormIdsList?.includes(form?.id),
-          form?.id
-        );
         if (form?.id && !completedFormIdsList?.includes(form?.id))
           if (basedOnDate && basedOnTime && basedOnURL) {
             if (isUrlTrue && isDateTrue && isTimeTrue) {

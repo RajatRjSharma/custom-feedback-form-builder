@@ -11,7 +11,7 @@ import Loader from "./components/Loader";
 const App = () => {
   const { loader } = useSelector((state) => state.generic);
   return (
-    <Router>
+    <Router basename="/custom-feedback-form-builder">
       {loader && <Loader />}
       <Notification />
       <Routes>

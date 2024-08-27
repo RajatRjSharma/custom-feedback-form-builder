@@ -14,16 +14,24 @@ export const isValidURL = (url) => {
  * Method to validate time.
  */
 export const isValidTime = (timeString) => {
-  const [hours, minutes] = timeString.split(":").map(Number);
-  return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
+  try {
+    const [hours, minutes] = timeString.split(":").map(Number);
+    return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
+  } catch {
+    return false;
+  }
 };
 
 /**
  * Method to validate date.
  */
 export const isValidDate = (dateString) => {
-  const date = new Date(dateString);
-  return !isNaN(date.getTime());
+  try {
+    const date = new Date(dateString);
+    return !isNaN(date.getTime());
+  } catch {
+    return false;
+  }
 };
 
 /**
@@ -54,7 +62,6 @@ export const normalizeDate = (date) => {
   if (isNaN(d.getTime())) {
     throw new Error("Invalid date");
   }
-  console.log(d.toUTCString(), d.toISOString());
   return d.toISOString().split("T")[0]; // YYYY-MM-DD
 };
 
@@ -83,7 +90,6 @@ export const normalizeTime = (time) => {
   if (isNaN(d.getTime())) {
     throw new Error("Invalid time");
   }
-  console.log(d.toUTCString(), d.toISOString());
   return d.toISOString().split("T")[1].slice(0, 5); // HH:MM
 };
 

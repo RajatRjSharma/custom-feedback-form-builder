@@ -5,23 +5,31 @@ import PropTypes from "prop-types";
  * Will convert UTC time to local time for display.
  */
 const convertToLocal = (utcTime) => {
-  const [hours, minutes] = utcTime.split(":").map(Number);
-  const date = new Date();
-  date.setUTCHours(hours, minutes, 0, 0);
-  return date.toLocaleTimeString("en-GB", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  try {
+    const [hours, minutes] = utcTime.split(":").map(Number);
+    const date = new Date();
+    date.setUTCHours(hours, minutes, 0, 0);
+    return date.toLocaleTimeString("en-GB", {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+  } catch {
+    return "";
+  }
 };
 
 /**
  * Will convert local time to UTC time for storage.
  */
 const convertToUTC = (localTime) => {
-  const [hours, minutes] = localTime.split(":").map(Number);
-  const date = new Date();
-  date.setHours(hours, minutes, 0, 0);
-  return date.toISOString().split("T")[1].slice(0, 5);
+  try {
+    const [hours, minutes] = localTime.split(":").map(Number);
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0);
+    return date.toISOString().split("T")[1].slice(0, 5);
+  } catch {
+    return "";
+  }
 };
 
 const TimeInput = ({
