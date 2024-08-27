@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "../../../components/Header";
 import NewFormCard from "./components/NewFormCard";
 import FormCard from "./components/FormCard";
 import CreateNewFormDialog from "./components/CreateNewFormDialog";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import {
   clearEditField,
   clearForm,
@@ -34,7 +34,7 @@ const Dashboard = () => {
         backgroundColor: "#F3F3F3",
       }}
     >
-      <Header />
+      <Header showToWebsite={true} />
       <main
         style={{
           width: "100%",

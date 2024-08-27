@@ -7,16 +7,16 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import backDarkSvg from "../../../../assets/back_dark.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import {
   clearEditField,
   setForm,
   setListOfFields,
 } from "../../../../store/adminSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
 import { setNotification } from "../../../../store/genericSlice";
 import { NotificationType } from "../../../../components/Notification/constants";
+import backDarkSvg from "../../../../assets/back_dark.svg";
 
 const EditField = () => {
   const dispatch = useDispatch();

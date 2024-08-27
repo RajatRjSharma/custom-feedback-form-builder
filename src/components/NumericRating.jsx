@@ -1,5 +1,5 @@
-import { Box, Divider, Typography } from "@mui/material";
 import React from "react";
+import { Box, Divider, Typography } from "@mui/material";
 
 const NumericRating = ({ value, onChange, length = 10, error }) => {
   return (

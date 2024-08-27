@@ -1,10 +1,10 @@
-import { useNavigate, useParams } from "react-router-dom";
-import Header from "../../../components/Header";
 import { Box } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { getForm, getSubmissions } from "../../../store/adminSlice";
 import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import Header from "../../../components/Header";
 import SubmissionCard from "./components/SubmissionCard";
+import { getForm, getSubmissions } from "../../../store/adminSlice";
 
 const Submission = () => {
   const dispatch = useDispatch();

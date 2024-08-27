@@ -1,14 +1,20 @@
-import React from "react";
-import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
-import { Avatar } from "@mui/material";
-import logo from "../assets/logo.svg";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  Avatar,
+} from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import logo from "../assets/logo.svg";
 
 const Header = ({
   showButtons = false,
   handlePublish,
   handleFormSave,
   form,
+  showToWebsite = false,
 }) => {
   const navigate = useNavigate();
 
@@ -62,6 +68,17 @@ const Header = ({
               {form?.isPublished ? "UN-PUBLISH" : "PUBLISH"}
             </Button>
           </Box>
+        )}
+        {showToWebsite && (
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            sx={{ fontSize: "15px", fontWeight: 500 }}
+            onClick={() => navigate("/")}
+          >
+            WEBSITE
+          </Button>
         )}
       </Toolbar>
     </AppBar>

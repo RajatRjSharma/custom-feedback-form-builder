@@ -1,15 +1,15 @@
 import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import backSvg from "../../../../assets/back.svg";
-import editSvg from "../../../../assets/edit.svg";
+import { useNavigate } from "react-router-dom";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import GetRespectiveField from "../../../../components/GetRespectiveField";
 import {
   clearEditField,
   setEditField,
   setListOfFields,
 } from "../../../../store/adminSlice";
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { useNavigate } from "react-router-dom";
+import backSvg from "../../../../assets/back.svg";
+import editSvg from "../../../../assets/edit.svg";
 
 const CreateEditForm = () => {
   const navigate = useNavigate();

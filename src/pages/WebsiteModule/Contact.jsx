@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Typography, Box, TextField, Button } from "@mui/material";
 
 const Contact = () => (

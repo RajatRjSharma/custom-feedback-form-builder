@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Category from "./Category";
 import FieldElement from "./FieldElement";
 import Input from "./Input";
@@ -17,8 +16,6 @@ const GetRespectiveField = ({
   formResponse,
   setFormResponse,
 }) => {
-  const [state, setState] = useState(null);
-
   const getFormFieldValue = (id) => formResponse?.[id]?.value || "";
 
   const getFormFieldError = (id) => formResponse?.[id]?.error || "";

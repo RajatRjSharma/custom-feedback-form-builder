@@ -1,8 +1,8 @@
 import { useEffect } from "react";
-import "./notification.css";
-import NotificationItem from "./NotificationItem";
 import { useDispatch, useSelector } from "react-redux";
+import NotificationItem from "./NotificationItem";
 import { clearNotification } from "../../store/genericSlice";
+import "./notification.css";
 
 export const Notification = () => {
   const dispatch = useDispatch();

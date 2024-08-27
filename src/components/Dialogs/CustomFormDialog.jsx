@@ -20,7 +20,7 @@ const CustomFormDialog = ({
   return (
     <Dialog
       open={open}
-      onClose={handleClose}
+      onClose={() => handleClose(form?.id || "")}
       PaperProps={{
         sx: {
           width: "500px",
@@ -90,7 +90,7 @@ const CustomFormDialog = ({
               variant="text"
               color="error"
               size="large"
-              onClick={handleClose}
+              onClick={() => handleClose(form?.id || "")}
             >
               Cancel
             </Button>

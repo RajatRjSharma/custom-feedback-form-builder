@@ -2,17 +2,19 @@ import { Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import Header from "../../../components/Header";
+import AsideToolBox from "./components/AsideToolBox";
+import CreateEditForm from "./components/CreateEditForm";
 import {
   getForm,
   setForm,
   addForm,
   updateForm,
   initialState,
+  clearForm,
+  clearEditField,
 } from "../../../store/adminSlice";
 import { setNotification } from "../../../store/genericSlice";
-import Header from "../../../components/Header";
-import AsideToolBox from "./components/AsideToolBox";
-import CreateEditForm from "./components/CreateEditForm";
 import { NotificationType } from "../../../components/Notification/constants";
 import { isValidDate, isValidTime } from "../../../services/helperFunctions";
 
@@ -125,6 +127,13 @@ const Form = () => {
       setShowBasedOn((_) => ({ ..._, ...form?.basedOn }));
     }
   }, [form]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearForm());
+      dispatch(clearEditField());
+    };
+  }, []);
 
   return (
     <Box sx={{ height: "100%", width: "100%", backgroundColor: "#F3F3F3" }}>

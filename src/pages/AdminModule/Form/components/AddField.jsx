@@ -1,4 +1,9 @@
-import React, { useState } from "react";
+import { Box, Typography } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
+import AddFieldElement from "../elements/AddFieldElement";
+import BasedOnElement from "../elements/BasedOnElement";
+import { setListOfFields } from "../../../../store/adminSlice";
 import textSVG from "../../../../assets/textarea_icon.svg";
 import categorySVG from "../../../../assets/category_icon.svg";
 import inputSVG from "../../../../assets/input_icon.svg";
@@ -6,12 +11,6 @@ import numericSVG from "../../../../assets/numeric_icon.svg";
 import radioSVG from "../../../../assets/radio_icon.svg";
 import smileySVG from "../../../../assets/smiley_icon.svg";
 import starSVG from "../../../../assets/star_icon.svg";
-import AddFieldElement from "../elements/AddFieldElement";
-import { Box, Typography } from "@mui/material";
-import BasedOnElement from "../elements/BasedOnElement";
-import { useDispatch, useSelector } from "react-redux";
-import { setListOfFields } from "../../../../store/adminSlice";
-import { v4 as uuidv4 } from "uuid";
 
 const AddField = ({ showBasedOn, setShowBasedOn }) => {
   const dispatch = useDispatch();

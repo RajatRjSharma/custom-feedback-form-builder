@@ -7,11 +7,12 @@ import {
   CardHeader,
   Typography,
 } from "@mui/material";
-import FormSvg from "../../../../assets/form.svg";
-import FormCardListElement from "../elements/FormCardListElement";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import FormCardListElement from "../elements/FormCardListElement";
+import FormSvg from "../../../../assets/form.svg";
 import { deleteForm } from "../../../../store/adminSlice";
+import { formatDate } from "../../../../services/helperFunctions";
 
 const FormCard = ({ data }) => {
   const dispatch = useDispatch();
@@ -99,7 +100,7 @@ const FormCard = ({ data }) => {
             title={"Published On"}
             value={
               data?.isPublished
-                ? new Date(data?.publishedOn || "")?.toDateString()
+                ? formatDate(data?.publishedOn) || "Invalid Timestamp"
                 : "Not Yet"
             }
           />

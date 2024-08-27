@@ -1,5 +1,4 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
 
 const Category = ({ value, onChange, options = [], error }) => {
   return (

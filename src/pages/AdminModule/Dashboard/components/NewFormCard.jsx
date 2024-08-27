@@ -1,5 +1,4 @@
 import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
-import React from "react";
 import Plus from "../../../../assets/plus.svg";
 
 const NewFormCard = ({ handleClick }) => {

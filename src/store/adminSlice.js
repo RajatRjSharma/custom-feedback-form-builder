@@ -154,11 +154,11 @@ export const addForm = (form, navigate) => async (dispatch) => {
   }
 };
 
-export const getForm = (formID) => async (dispatch) => {
-  if (formID) {
+export const getForm = (formId) => async (dispatch) => {
+  if (formId) {
     dispatch(setLoader(true));
     try {
-      const formRef = doc(db, "forms", formID);
+      const formRef = doc(db, "forms", formId);
       const formSnap = await getDoc(formRef);
       if (formSnap.exists()) {
         dispatch(
@@ -188,14 +188,14 @@ export const getForm = (formID) => async (dispatch) => {
   }
 };
 
-export const updateForm = (formID, form, navigate) => async (dispatch) => {
-  if (formID) {
+export const updateForm = (formId, form, navigate) => async (dispatch) => {
+  if (formId) {
     dispatch(setLoader(true));
     try {
       delete form.active;
       delete form.id;
       delete form.createdAt;
-      const formRef = doc(db, "forms", formID);
+      const formRef = doc(db, "forms", formId);
       await updateDoc(formRef, form);
       if (navigate) {
         dispatch(
@@ -222,12 +222,12 @@ export const updateForm = (formID, form, navigate) => async (dispatch) => {
   }
 };
 
-export const deleteForm = (formID) => async (dispatch) => {
-  if (formID) {
+export const deleteForm = (formId) => async (dispatch) => {
+  if (formId) {
     const batch = writeBatch(db);
     dispatch(setLoader(true));
     try {
-      const formRef = doc(db, "forms", formID);
+      const formRef = doc(db, "forms", formId);
       const submissionsQuery = query(
         submissionsCollectionRef,
         where("form", "==", formRef)
@@ -261,11 +261,11 @@ export const deleteForm = (formID) => async (dispatch) => {
   }
 };
 
-export const getSubmissions = (formID) => async (dispatch) => {
-  if (formID) {
+export const getSubmissions = (formId) => async (dispatch) => {
+  if (formId) {
     dispatch(setLoader(true));
     try {
-      const formRef = doc(db, "forms", formID);
+      const formRef = doc(db, "forms", formId);
       const submissionQuery = query(
         submissionsCollectionRef,
         where("form", "==", formRef),

@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Typography, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +15,7 @@ const Home = () => {
         }}
       >
         <Typography variant="h3" gutterBottom>
-          Welcome to Our Professional Website
+          Welcome to Our Website
         </Typography>
         <Typography variant="h6" color="text.secondary" paragraph>
           We provide top-notch services and solutions to meet your needs.

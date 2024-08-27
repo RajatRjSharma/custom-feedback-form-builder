@@ -36,6 +36,7 @@ const initialState = {
     },
   },
   openCurrentFormDialog: false,
+  completedFormIdsList: [],
 };
 
 const websiteSlice = createSlice({
@@ -45,20 +46,30 @@ const websiteSlice = createSlice({
     setPublishedForms: (state, action) => {
       state.publishedForms = action.payload;
     },
-    clearPublishedForms: (state) => {
-      state.publishedForms = [];
-    },
     setCurrentForm: (state, action) => {
       state.currentForm = action.payload;
-    },
-    clearCurrentForm: (state) => {
-      state.currentForm = { ...initialState?.currentForm };
     },
     setOpenCurrentFormDialog: (state, action) => {
       state.openCurrentFormDialog = action.payload;
     },
+    setCompletedFormIdsList: (state, action) => {
+      console.log(action.payload);
+      state.completedFormIdsList = [
+        ...state.completedFormIdsList,
+        action.payload,
+      ];
+    },
+    clearPublishedForms: (state) => {
+      state.publishedForms = [];
+    },
+    clearCurrentForm: (state) => {
+      state.currentForm = { ...initialState?.currentForm };
+    },
     clearOpenCurrentFormDialog: (state) => {
       state.openCurrentFormDialog = false;
+    },
+    clearCompletedFormIdsList: (state) => {
+      state.completedFormIdsList = [];
     },
   },
 });
@@ -70,6 +81,8 @@ export const {
   clearCurrentForm,
   setOpenCurrentFormDialog,
   clearOpenCurrentFormDialog,
+  setCompletedFormIdsList,
+  clearCompletedFormIdsList,
 } = websiteSlice.actions;
 
 export default websiteSlice.reducer;
@@ -106,17 +119,17 @@ export const getFormsBasedOnFieldValue =
     }
   };
 
-export const getCurrentForm = (formID) => async (dispatch) => {
-  if (formID) {
+export const getCurrentForm = (formId) => async (dispatch) => {
+  if (formId) {
     dispatch(setLoader(true));
     try {
-      const formRef = doc(db, "forms", formID);
+      const formRef = doc(db, "forms", formId);
       const formSnap = await getDoc(formRef);
       if (formSnap.exists()) {
         dispatch(
           setCurrentForm({ ...formSnap.data(), id: formSnap.id, active: true })
         );
-        dispatch(incrementFormFieldByOne(formID, "viewed"));
+        dispatch(incrementFormFieldByOne(formId, "viewed"));
       } else {
         dispatch(
           setNotification({
@@ -141,11 +154,11 @@ export const getCurrentForm = (formID) => async (dispatch) => {
   }
 };
 
-export const addSubmission = (userResponse, formID) => async (dispatch) => {
-  if (formID) {
+export const addSubmission = (userResponse, formId) => async (dispatch) => {
+  if (formId) {
     dispatch(setLoader(true));
     try {
-      const formRef = doc(db, "forms", formID);
+      const formRef = doc(db, "forms", formId);
       await addDoc(submissionsCollectionRef, {
         ...userResponse,
         form: formRef,
@@ -159,7 +172,9 @@ export const addSubmission = (userResponse, formID) => async (dispatch) => {
         })
       );
       dispatch(setOpenCurrentFormDialog(false));
-      dispatch(incrementFormFieldByOne(formID, "submitted"));
+      dispatch(incrementFormFieldByOne(formId, "submitted"));
+      dispatch(setCompletedFormIdsList(formId));
+      dispatch(clearCurrentForm());
     } catch (error) {
       dispatch(
         setNotification({
@@ -176,11 +191,11 @@ export const addSubmission = (userResponse, formID) => async (dispatch) => {
 };
 
 export const incrementFormFieldByOne =
-  (formID, incrementField) => async (dispatch) => {
-    if (formID) {
+  (formId, incrementField) => async (dispatch) => {
+    if (formId) {
       dispatch(setLoader(true));
       try {
-        const formRef = doc(db, "forms", formID);
+        const formRef = doc(db, "forms", formId);
         await updateDoc(formRef, { [incrementField]: increment(1) });
       } catch (error) {
         dispatch(

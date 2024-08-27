@@ -24,13 +24,57 @@ export const formatDate = (date) => {
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-      second: "2-digit",
       hour12: true,
-      weekday: "short",
     });
 
     return formatter.format(new Date(date));
   } catch (_) {
     return null;
+  }
+};
+
+export const normalizeDate = (date) => {
+  const d = date ? new Date(date) : new Date();
+  if (isNaN(d.getTime())) {
+    throw new Error("Invalid date");
+  }
+  console.log(d.toUTCString(), d.toISOString());
+  return d.toISOString().split("T")[0]; // YYYY-MM-DD
+};
+
+export const isDateEqualWithCurrentDate = (date1) => {
+  try {
+    const normalizedDate1 = normalizeDate(date1);
+    const normalizedDate2 = normalizeDate();
+
+    if (normalizedDate1 === normalizedDate2) {
+      return true;
+    }
+    return false;
+  } catch (_) {
+    return false;
+  }
+};
+
+export const normalizeTime = (time) => {
+  const d = time ? new Date(`1970-01-01T${time}Z`) : new Date();
+  if (isNaN(d.getTime())) {
+    throw new Error("Invalid time");
+  }
+  console.log(d.toUTCString(), d.toISOString());
+  return d.toISOString().split("T")[1].slice(0, 5); // HH:MM
+};
+
+export const isTimeEqualToCurrentTime = (time1) => {
+  try {
+    const normalizedTime1 = normalizeTime(time1);
+    const normalizedTime2 = normalizeTime();
+
+    if (normalizedTime1 === normalizedTime2) {
+      return true;
+    }
+    return false;
+  } catch (_) {
+    return false;
   }
 };

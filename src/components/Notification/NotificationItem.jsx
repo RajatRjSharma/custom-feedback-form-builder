@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { NotificationType } from "./constants";
 import "./notification.css";
-import PropTypes from "prop-types";
 
 const NotificationItem = ({ message, type = "info", onClose }) => {
   if (!message) return null;

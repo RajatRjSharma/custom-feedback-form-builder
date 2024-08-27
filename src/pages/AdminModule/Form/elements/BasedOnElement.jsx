@@ -1,4 +1,6 @@
 import { Box, Switch, TextField, Typography } from "@mui/material";
+import DateInput from "../../../../components/DateInput";
+import TimeInput from "../../../../components/TimeInput";
 
 const BasedOnElement = ({
   title,
@@ -10,6 +12,56 @@ const BasedOnElement = ({
   type,
   shrink = {},
 }) => {
+  const textField = () => {
+    switch (type) {
+      case "date": {
+        return (
+          <DateInput
+            label={label}
+            basedOnSwitchKey={basedOnSwitchKey}
+            basedOnValueKey={basedOnValueKey}
+            showBasedOn={showBasedOn}
+            setShowBasedOn={setShowBasedOn}
+          />
+        );
+      }
+      case "time": {
+        return (
+          <TimeInput
+            label={label}
+            basedOnSwitchKey={basedOnSwitchKey}
+            basedOnValueKey={basedOnValueKey}
+            showBasedOn={showBasedOn}
+            setShowBasedOn={setShowBasedOn}
+          />
+        );
+      }
+      default: {
+        return (
+          <TextField
+            autoFocus
+            margin="dense"
+            id={label + "-" + type}
+            label={label}
+            type={type}
+            fullWidth
+            variant="standard"
+            sx={{ width: "100%", marginTop: 0 }}
+            disabled={!showBasedOn?.[basedOnSwitchKey]}
+            value={showBasedOn?.[basedOnValueKey]}
+            InputLabelProps={{ ...shrink }}
+            onChange={(e) =>
+              setShowBasedOn((_) => ({
+                ..._,
+                [basedOnValueKey]: e.target.value,
+              }))
+            }
+          />
+        );
+      }
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -42,22 +94,7 @@ const BasedOnElement = ({
           }
         />
       </Box>
-      <TextField
-        autoFocus
-        margin="dense"
-        id={label + "-" + type}
-        label={label}
-        type={type}
-        fullWidth
-        variant="standard"
-        sx={{ width: "100%", marginTop: 0 }}
-        disabled={!showBasedOn?.[basedOnSwitchKey]}
-        value={showBasedOn?.[basedOnValueKey]}
-        InputLabelProps={{ ...shrink }}
-        onChange={(e) =>
-          setShowBasedOn((_) => ({ ..._, [basedOnValueKey]: e.target.value }))
-        }
-      />
+      {textField()}
     </Box>
   );
 };

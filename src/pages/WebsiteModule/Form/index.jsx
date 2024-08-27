@@ -1,22 +1,36 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useLocationChange from "../../../services/hooks/useLocationChange";
+import useDateTime from "../../../services/hooks/useDateTime";
+import CustomFormDialog from "../../../components/Dialogs/CustomFormDialog";
 import {
   addSubmission,
+  clearCurrentForm,
+  clearOpenCurrentFormDialog,
+  clearPublishedForms,
   getCurrentForm,
   getFormsBasedOnFieldValue,
+  setCompletedFormIdsList,
   setOpenCurrentFormDialog,
 } from "../../../store/websiteSlice";
 import { setNotification } from "../../../store/genericSlice";
-import CustomFormDialog from "../../../components/Dialogs/CustomFormDialog";
 import { NotificationType } from "../../../components/Notification/constants";
+import {
+  isDateEqualWithCurrentDate,
+  isTimeEqualToCurrentTime,
+} from "../../../services/helperFunctions";
 
 const Form = ({ children }) => {
   const dispatch = useDispatch();
-  const [currentFormIndex, setCurrentFormIndex] = useState(0);
+  const location = useLocationChange();
+  const dateTime = useDateTime();
   const [formResponse, setFormResponse] = useState({});
-  const { publishedForms, currentForm, openCurrentFormDialog } = useSelector(
-    (state) => state.website
-  );
+  const {
+    publishedForms,
+    currentForm,
+    openCurrentFormDialog,
+    completedFormIdsList,
+  } = useSelector((state) => state.website);
 
   const setFormResponseState = (listOfFields) => {
     let tempAnsList = {};
@@ -79,14 +93,76 @@ const Form = ({ children }) => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (
-      publishedForms?.length &&
-      publishedForms[currentFormIndex]?.id &&
-      publishedForms[currentFormIndex]?.isPublished
-    ) {
-      dispatch(getCurrentForm(publishedForms[currentFormIndex]?.id));
+    if (publishedForms?.length && location && !openCurrentFormDialog) {
+      console.log(publishedForms, location);
+      publishedForms?.some((form) => {
+        const { basedOnURL, basedOnDate, basedOnTime, url, date, time } =
+          form?.basedOn;
+        const isUrlTrue = basedOnURL ? location?.href?.includes(url) : false;
+        const isDateTrue = basedOnDate
+          ? isDateEqualWithCurrentDate(date)
+          : false;
+        const isTimeTrue = basedOnTime ? isTimeEqualToCurrentTime(time) : false;
+        console.log(
+          basedOnURL,
+          basedOnDate,
+          basedOnTime,
+          url,
+          date,
+          time,
+          isUrlTrue,
+          isDateTrue,
+          isTimeTrue,
+          completedFormIdsList?.includes(form?.id),
+          form?.id
+        );
+        if (form?.id && !completedFormIdsList?.includes(form?.id))
+          if (basedOnDate && basedOnTime && basedOnURL) {
+            if (isUrlTrue && isDateTrue && isTimeTrue) {
+              dispatch(getCurrentForm(form?.id));
+              return true;
+            }
+          } else if (basedOnDate && basedOnTime) {
+            if (isDateTrue && isTimeTrue) {
+              dispatch(getCurrentForm(form?.id));
+              return true;
+            }
+          } else if (basedOnTime && basedOnURL) {
+            if (isUrlTrue && isTimeTrue) {
+              dispatch(getCurrentForm(form?.id));
+              return true;
+            }
+          } else if (basedOnDate && basedOnURL) {
+            if (isUrlTrue && isDateTrue) {
+              dispatch(getCurrentForm(form?.id));
+              return true;
+            }
+          } else if (basedOnTime) {
+            if (isTimeTrue) {
+              dispatch(getCurrentForm(form?.id));
+              return true;
+            }
+          } else if (basedOnDate) {
+            if (isDateTrue) {
+              dispatch(getCurrentForm(form?.id));
+              return true;
+            }
+          } else if (basedOnURL) {
+            if (isUrlTrue) {
+              dispatch(getCurrentForm(form?.id));
+              return true;
+            }
+          }
+        return false;
+      });
     }
-  }, [publishedForms]);
+  }, [
+    publishedForms,
+    location,
+    completedFormIdsList,
+    dateTime,
+    openCurrentFormDialog,
+  ]);
 
   useEffect(() => {
     if (currentForm?.active && currentForm?.isPublished) {
@@ -94,6 +170,14 @@ const Form = ({ children }) => {
       dispatch(setOpenCurrentFormDialog(true));
     }
   }, [currentForm]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearCurrentForm());
+      dispatch(clearOpenCurrentFormDialog());
+      dispatch(clearPublishedForms());
+    };
+  }, []);
 
   return (
     <>
@@ -107,7 +191,11 @@ const Form = ({ children }) => {
               currentForm?.active &&
               currentForm?.isPublished
             }
-            handleClose={() => dispatch(setOpenCurrentFormDialog(false))}
+            handleClose={(formId) => {
+              dispatch(setOpenCurrentFormDialog(false));
+              if (formId) dispatch(setCompletedFormIdsList(formId));
+              dispatch(clearCurrentForm());
+            }}
             form={currentForm}
             formResponse={formResponse}
             setFormResponse={setFormResponse}

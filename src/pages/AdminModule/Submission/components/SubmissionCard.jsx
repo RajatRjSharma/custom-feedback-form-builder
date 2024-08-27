@@ -1,10 +1,10 @@
 import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
-import backSvg from "../../../../assets/back.svg";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import FormInsights from "./FormInsights";
 import FeedBackAccordion from "./FeedBackAccordion";
-import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../../services/helperFunctions";
+import backSvg from "../../../../assets/back.svg";
 
 const SubmissionCard = () => {
   const navigate = useNavigate();
@@ -54,9 +54,7 @@ const SubmissionCard = () => {
         <Typography
           sx={{ fontSize: "18px", color: "#FFFFFF", fontWeight: 400, mr: 1 }}
         >
-          {`Published On : ${
-            formatDate(form?.publishedOn) || "Invalid Timestamp"
-          }`}
+          {`Created On : ${formatDate(form?.createdAt) || "Invalid Timestamp"}`}
         </Typography>
       </Box>
       <CardContent

@@ -1,5 +1,5 @@
-import { Navigate, Route, Routes, Link } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Button, Container } from "@mui/material";
+import { Navigate, Route, Routes, Link } from "react-router-dom";
 import Form from "./Form";
 import Home from "./Home";
 import About from "./About";
@@ -11,7 +11,7 @@ const WebsiteModule = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Professional Website
+            Website
           </Typography>
           <Button color="inherit" component={Link} to="/">
             Home
