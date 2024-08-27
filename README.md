@@ -1,8 +1,23 @@
-# React + Vite
+# Custom Feedback Form Builder (React Project)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[Live Link]()
 
-Currently, two official plugins are available:
+- Vite-React frontend project.
+- Material UI for HTML Components & CSS.
+- Redux-Toolkit for state management.
+- Firebase/Firestore for serverless apis/storage.
+- React-Router-Dom for routing.
+- Eslint for lint check and fix.
+- Host on Github pages.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Before starting further please run npm install and add a /.env with required envs as shown in /.env.example
+
+    (Install npm packages)
+    npm i / install
+    (Add /.env with required envs from /.env.example file)
+
+    (Run a dev instance)
+    npm run dev
+
+    (Run a lint check)
+    npm run lint
