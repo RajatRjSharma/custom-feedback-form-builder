@@ -10,7 +10,7 @@ const useDateTime = () => {
     };
 
     // Update date and time every half minute
-    const intervalId = setInterval(updateDateTime, 30000);
+    const intervalId = setInterval(updateDateTime, 10000);
 
     // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
