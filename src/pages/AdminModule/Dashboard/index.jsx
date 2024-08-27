@@ -14,12 +14,18 @@ import {
   setForm,
 } from "../../../store/adminSlice";
 
+/**
+ * Admin dashboard component.
+ */
 const Dashboard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [openDialog, setOpenDialog] = useState(false);
   const { forms } = useSelector((state) => state.admin);
 
+  /**
+   * Initial clean and forms fetch.
+   */
   useEffect(() => {
     dispatch(clearForm());
     dispatch(clearEditField());

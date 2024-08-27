@@ -5,6 +5,10 @@ import Home from "./Home";
 import About from "./About";
 import Contact from "./Contact";
 
+/**
+ * Website module to handle the user form rendering based on
+ * conditions and show website pages like home, about and contact us.
+ */
 const WebsiteModule = () => {
   return (
     <Form>

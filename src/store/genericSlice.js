@@ -5,6 +5,9 @@ const initialState = {
   loader: false,
 };
 
+/**
+ * Generic slice to handle notification and loader.
+ */
 export const genericSlice = createSlice({
   name: "generic",
   initialState,

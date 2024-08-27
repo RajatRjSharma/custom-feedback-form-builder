@@ -8,6 +8,9 @@ export const Notification = () => {
   const dispatch = useDispatch();
   const { notification } = useSelector((state) => state.generic);
 
+  /**
+   * Notification will auto clear after 5 sec.
+   */
   useEffect(() => {
     if (notification?.active)
       setTimeout(() => {

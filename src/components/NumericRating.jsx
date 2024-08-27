@@ -2,6 +2,9 @@ import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Numeric rating field component.
+ */
 const NumericRating = ({ value, onChange, length = 10, error }) => {
   return (
     <>

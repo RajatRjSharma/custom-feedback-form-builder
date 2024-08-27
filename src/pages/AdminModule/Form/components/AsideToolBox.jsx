@@ -4,6 +4,9 @@ import { useSelector } from "react-redux";
 import AddField from "./AddField";
 import EditField from "./EditField";
 
+/**
+ * Aside wrapper-up component to display add fields, based on fields and edit field.
+ */
 const AsideToolBox = ({ showBasedOn, setShowBasedOn }) => {
   const { editField } = useSelector((state) => state.admin);
 

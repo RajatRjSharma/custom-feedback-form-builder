@@ -15,6 +15,9 @@ import FormSvg from "../../../../assets/form.svg";
 import { deleteForm } from "../../../../store/adminSlice";
 import { formatDate } from "../../../../services/helperFunctions";
 
+/**
+ * Form card component to display in admin dashboard.
+ */
 const FormCard = ({ data }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

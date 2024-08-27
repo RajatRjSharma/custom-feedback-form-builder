@@ -5,6 +5,9 @@ import WebsiteModule from "./pages/WebsiteModule";
 import Notification from "./components/Notification";
 import Loader from "./components/Loader";
 
+/**
+ * Custom user feedback app with two modules, admin and website.
+ */
 const App = () => {
   const { loader } = useSelector((state) => state.generic);
   return (

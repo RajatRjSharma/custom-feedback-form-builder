@@ -3,6 +3,10 @@ import Dashboard from "./Dashboard";
 import Form from "./Form";
 import Submission from "./Submission";
 
+/**
+ * Admin module to handle the admin dashboard, form create/edit,
+ *  form submission details.
+ */
 const AdminModule = () => (
   <Routes>
     <Route path="/" element={<Dashboard />}></Route>

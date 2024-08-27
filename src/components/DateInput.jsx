@@ -1,6 +1,9 @@
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Will convert UTC date to local date for display.
+ */
 const convertToLocal = (utcDate) => {
   const date = new Date(`${utcDate}T00:00:00Z`);
   const year = date.getFullYear();
@@ -9,6 +12,9 @@ const convertToLocal = (utcDate) => {
   return `${year}-${month}-${day}`;
 };
 
+/**
+ * Will convert Local date to UTC date for storage.
+ */
 const convertToUTC = (localDate) => {
   const [year, month, day] = localDate.split("-").map(Number);
   const date = new Date(Date.UTC(year, month - 1, day));

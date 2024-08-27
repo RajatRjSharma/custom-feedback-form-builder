@@ -6,6 +6,9 @@ import face3Svg from "../assets/face3.svg";
 import face4Svg from "../assets/face4.svg";
 import face5Svg from "../assets/face5.svg";
 
+/**
+ * Smiley rating field component.
+ */
 const SmileyRating = ({ value, onChange, error }) => {
   return (
     <>

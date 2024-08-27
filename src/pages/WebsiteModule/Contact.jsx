@@ -1,5 +1,8 @@
 import { Container, Typography, Box, TextField, Button } from "@mui/material";
 
+/**
+ * Simple Contact us page.
+ */
 const Contact = () => (
   <Container component="main" maxWidth="md">
     <Box

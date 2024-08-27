@@ -18,6 +18,10 @@ import { setNotification } from "../../../../store/genericSlice";
 import { NotificationType } from "../../../../components/Notification/constants";
 import backDarkSvg from "../../../../assets/back_dark.svg";
 
+/**
+ * Edit field component to show options for editing field label,
+ * required or not, error msg and options for radio/category.
+ */
 const EditField = () => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");

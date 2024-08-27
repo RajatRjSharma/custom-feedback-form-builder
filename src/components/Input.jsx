@@ -1,6 +1,9 @@
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Single Input field component.
+ */
 const Input = ({
   label,
   type = "text",

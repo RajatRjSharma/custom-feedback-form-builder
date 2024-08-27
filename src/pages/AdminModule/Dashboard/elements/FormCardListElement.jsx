@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Element to display title and value in form card.
+ */
 const FormCardListElement = ({ title, value }) => {
   return (
     <Box

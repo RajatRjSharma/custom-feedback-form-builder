@@ -10,6 +10,9 @@ import {
 import PropTypes from "prop-types";
 import GetRespectiveField from "../GetRespectiveField";
 
+/**
+ * Main dialog which will render the form for user feedback.
+ */
 const CustomFormDialog = ({
   open,
   handleClose,

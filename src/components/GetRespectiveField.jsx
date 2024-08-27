@@ -8,6 +8,9 @@ import SmileyRating from "./SmileyRating";
 import StarRating from "./StarRating";
 import TextArea from "./TextArea";
 
+/**
+ * Will return respective field component based on type.
+ */
 const GetRespectiveField = ({
   data,
   handleDelete,

@@ -9,6 +9,9 @@ import {
 import { useState } from "react";
 import PropTypes from "prop-types";
 
+/**
+ * Dialog for create form name.
+ */
 const CreateNewFormDialog = ({ open, handleClose, handleSubmit }) => {
   const [name, setName] = useState("");
   const [error, setError] = useState("");

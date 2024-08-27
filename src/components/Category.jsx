@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Category field component.
+ */
 const Category = ({ value, onChange, options = [], error }) => {
   return (
     <>

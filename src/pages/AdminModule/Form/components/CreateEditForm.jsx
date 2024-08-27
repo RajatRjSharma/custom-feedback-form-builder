@@ -11,6 +11,10 @@ import {
 import backSvg from "../../../../assets/back.svg";
 import editSvg from "../../../../assets/edit.svg";
 
+/**
+ * Main edit/create form component which will display form fields added
+ * with options for edit, delete and drag and drop to order fields.
+ */
 const CreateEditForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -42,6 +46,9 @@ const CreateEditForm = () => {
       );
   };
 
+  /**
+   * Handle drag drop logic to order fields.
+   */
   const onDragEnd = (result) => {
     const sourceIndex = result?.source?.index ?? -1;
     const destinationIndex = result?.destination?.index ?? -1;

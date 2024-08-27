@@ -10,6 +10,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import QuestionAndAnswer from "../elements/QuestionAndAnswer";
 import { formatDate } from "../../../../services/helperFunctions";
 
+/**
+ * Feedback accordion component to render user submission details.
+ */
 const FeedBackAccordion = ({ index, submission, form }) => {
   return (
     <Accordion>

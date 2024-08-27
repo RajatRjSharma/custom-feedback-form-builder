@@ -1,6 +1,9 @@
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Textarea field component.
+ */
 const TextArea = ({
   label,
   rows = 4,

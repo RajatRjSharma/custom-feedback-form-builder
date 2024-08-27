@@ -21,6 +21,10 @@ import {
   isTimeEqualToCurrentTime,
 } from "../../../services/helperFunctions";
 
+/**
+ * Main wrapper-up component to handle user form render logic based
+ *  on route, time or date.
+ */
 const Form = ({ children }) => {
   const dispatch = useDispatch();
   const location = useLocationChange();
@@ -33,6 +37,9 @@ const Form = ({ children }) => {
     completedFormIdsList,
   } = useSelector((state) => state.website);
 
+  /**
+   * State to handle user response.
+   */
   const setFormResponseState = (listOfFields) => {
     let tempAnsList = {};
     listOfFields?.forEach((_) => {
@@ -41,6 +48,10 @@ const Form = ({ children }) => {
     setFormResponse({ ...tempAnsList });
   };
 
+  /**
+   * Method to handle the validation of user responses for required
+   *  fields and updated state to show required error msg.
+   */
   const validateAnswers = () => {
     let isValid = true;
     let tempAnsList = { ...formResponse };
@@ -63,6 +74,9 @@ const Form = ({ children }) => {
     return { isValid, tempAnsList };
   };
 
+  /**
+   * Method to handle submission of user response.
+   */
   const handleSubmit = () => {
     const { isValid, tempAnsList } = validateAnswers();
     if (isValid) {
@@ -87,12 +101,19 @@ const Form = ({ children }) => {
     }
   };
 
+  /**
+   * To fetch published forms to get user responses.
+   */
   useEffect(() => {
     if (dispatch) {
       dispatch(getFormsBasedOnFieldValue("isPublished", true));
     }
   }, [dispatch]);
 
+  /**
+   * To handle the logic to show form based on url change,
+   * date or time change.
+   */
   useEffect(() => {
     if (publishedForms?.length && location && !openCurrentFormDialog) {
       console.log(publishedForms, location);
@@ -173,6 +194,9 @@ const Form = ({ children }) => {
     dispatch,
   ]);
 
+  /**
+   * To set response state for current form and open form.
+   */
   useEffect(() => {
     if (currentForm?.active && currentForm?.isPublished) {
       setFormResponseState([...(currentForm?.listOfFields || [])]);
@@ -180,6 +204,9 @@ const Form = ({ children }) => {
     }
   }, [currentForm, dispatch]);
 
+  /**
+   * Unmount state clean up.
+   */
   useEffect(() => {
     return () => {
       dispatch(clearCurrentForm());

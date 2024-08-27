@@ -6,6 +6,9 @@ import FeedBackAccordion from "./FeedBackAccordion";
 import { formatDate } from "../../../../services/helperFunctions";
 import backSvg from "../../../../assets/back.svg";
 
+/**
+ * Submission card component to handle the render of submission details.
+ */
 const SubmissionCard = () => {
   const navigate = useNavigate();
   const { form, submissions } = useSelector((state) => state.admin);

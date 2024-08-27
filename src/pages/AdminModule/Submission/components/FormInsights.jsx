@@ -2,6 +2,9 @@ import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import StatsElement from "../elements/StatsElement";
 
+/**
+ * Form Insights component to render information for form in submission page.
+ */
 const FormInsights = ({ submitted, viewed, basedOn }) => {
   return (
     <Box

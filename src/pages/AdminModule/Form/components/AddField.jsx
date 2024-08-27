@@ -13,9 +13,15 @@ import radioSVG from "../../../../assets/radio_icon.svg";
 import smileySVG from "../../../../assets/smiley_icon.svg";
 import starSVG from "../../../../assets/star_icon.svg";
 
+/**
+ * Add field component to list all the form fields types and based on fields.
+ */
 const AddField = ({ showBasedOn, setShowBasedOn }) => {
   const dispatch = useDispatch();
   const { form } = useSelector((state) => state.admin);
+  /**
+   * List of fields
+   */
   const addFields = [
     {
       image: textSVG,
@@ -98,6 +104,9 @@ const AddField = ({ showBasedOn, setShowBasedOn }) => {
     },
   ];
 
+  /**
+   * Addition of new field
+   */
   const handleFieldAddition = (_) => {
     _.id = uuidv4();
     dispatch(setListOfFields([...(form?.listOfFields || []), _]));

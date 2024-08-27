@@ -1,6 +1,9 @@
 import { FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Radio field component.
+ */
 const RadioCollection = ({
   name,
   value = null,

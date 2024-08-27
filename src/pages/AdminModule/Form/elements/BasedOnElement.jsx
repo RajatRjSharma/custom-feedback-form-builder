@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import DateInput from "../../../../components/DateInput";
 import TimeInput from "../../../../components/TimeInput";
 
+/**
+ * Element to handle based on components.
+ */
 const BasedOnElement = ({
   title,
   showBasedOn,

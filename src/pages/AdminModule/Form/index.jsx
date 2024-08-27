@@ -18,6 +18,9 @@ import { setNotification } from "../../../store/genericSlice";
 import { NotificationType } from "../../../components/Notification/constants";
 import { isValidDate, isValidTime } from "../../../services/helperFunctions";
 
+/**
+ * Main parent component to handle create/edit for forms.
+ */
 const Form = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,6 +36,9 @@ const Form = () => {
     time: "",
   });
 
+  /**
+   * Based on field validation.
+   */
   const validateBasedOn = () => {
     if (showBasedOn?.basedOnURL && !showBasedOn?.url?.trim()) {
       dispatch(
@@ -88,12 +94,18 @@ const Form = () => {
     return true;
   };
 
+  /**
+   * Handle create/update for form.
+   */
   const handleFormSave = () => {
     const payload = { ...form, basedOn: { ...showBasedOn } };
     if (!form?.id) dispatch(addForm(payload, navigate));
     else dispatch(updateForm(form?.id, payload, navigate));
   };
 
+  /**
+   * Handle publish/un-publish of form.
+   */
   const handlePublish = () => {
     let payload = {
       ...form,
@@ -106,6 +118,9 @@ const Form = () => {
       else dispatch(updateForm(form?.id, payload, navigate));
   };
 
+  /**
+   * Handle the fetch of form based on param create/:id.
+   */
   useEffect(() => {
     if (id === "create") {
       dispatch(
@@ -122,12 +137,18 @@ const Form = () => {
     }
   }, [id, dispatch, navigate, form?.title]);
 
+  /**
+   * Based on state set.
+   */
   useEffect(() => {
     if (form?.basedOn) {
       setShowBasedOn((_) => ({ ..._, ...form?.basedOn }));
     }
   }, [form]);
 
+  /**
+   * Form clean up on unmount
+   */
   useEffect(() => {
     return () => {
       dispatch(clearForm());

@@ -7,6 +7,9 @@ import {
   ListItemText,
 } from "@mui/material";
 
+/**
+ * Simple about page.
+ */
 const About = () => (
   <Container component="main" maxWidth="md">
     <Box

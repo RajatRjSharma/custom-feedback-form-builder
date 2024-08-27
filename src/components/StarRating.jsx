@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import starSvg from "../assets/star.svg";
 import starActiveSvg from "../assets/star_active.svg";
 
+/**
+ * Star rating field component.
+ */
 const StarRating = ({ value, onChange, length = 5, error }) => {
   return (
     <>

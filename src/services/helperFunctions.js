@@ -1,3 +1,6 @@
+/**
+ * Method to validate url.
+ */
 export const isValidURL = (url) => {
   try {
     new URL(url);
@@ -6,16 +9,26 @@ export const isValidURL = (url) => {
     return false;
   }
 };
+
+/**
+ * Method to validate time.
+ */
 export const isValidTime = (timeString) => {
   const [hours, minutes] = timeString.split(":").map(Number);
   return hours >= 0 && hours < 24 && minutes >= 0 && minutes < 60;
 };
 
+/**
+ * Method to validate date.
+ */
 export const isValidDate = (dateString) => {
   const date = new Date(dateString);
   return !isNaN(date.getTime());
 };
 
+/**
+ * Method to format timestamp for user view in ui.
+ */
 export const formatDate = (date) => {
   try {
     const formatter = new Intl.DateTimeFormat("en-US", {
@@ -33,6 +46,9 @@ export const formatDate = (date) => {
   }
 };
 
+/**
+ * Method to normalize date to utc.
+ */
 export const normalizeDate = (date) => {
   const d = date ? new Date(date) : new Date();
   if (isNaN(d.getTime())) {
@@ -42,9 +58,12 @@ export const normalizeDate = (date) => {
   return d.toISOString().split("T")[0]; // YYYY-MM-DD
 };
 
-export const isDateEqualWithCurrentDate = (date1) => {
+/**
+ * Method to check if date is equal to current date.
+ */
+export const isDateEqualWithCurrentDate = (date) => {
   try {
-    const normalizedDate1 = normalizeDate(date1);
+    const normalizedDate1 = normalizeDate(date);
     const normalizedDate2 = normalizeDate();
 
     if (normalizedDate1 === normalizedDate2) {
@@ -56,6 +75,9 @@ export const isDateEqualWithCurrentDate = (date1) => {
   }
 };
 
+/**
+ * Method to normalize time to utc.
+ */
 export const normalizeTime = (time) => {
   const d = time ? new Date(`1970-01-01T${time}Z`) : new Date();
   if (isNaN(d.getTime())) {
@@ -65,6 +87,9 @@ export const normalizeTime = (time) => {
   return d.toISOString().split("T")[1].slice(0, 5); // HH:MM
 };
 
+/**
+ * Method to check if time is equal to current time hh:mm.
+ */
 export const isTimeEqualToCurrentTime = (time1) => {
   try {
     const normalizedTime1 = normalizeTime(time1);

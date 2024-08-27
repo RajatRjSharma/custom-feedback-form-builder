@@ -10,6 +10,9 @@ import PropTypes from "prop-types";
 import editDarkSvg from "../assets/edit_dark.svg";
 import deleteDarkSvg from "../assets/delete_dark.svg";
 
+/**
+ * Wrapper for user feedback form fields.
+ */
 const FieldElement = ({
   title,
   handleEdit,

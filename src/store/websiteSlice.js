@@ -39,6 +39,9 @@ const initialState = {
   completedFormIdsList: [],
 };
 
+/**
+ * Website slice to handle store state for website module.
+ */
 const websiteSlice = createSlice({
   name: "website",
   initialState,
@@ -87,9 +90,16 @@ export const {
 
 export default websiteSlice.reducer;
 
+/**
+ * Firestore collections refs
+ */
 const formsCollectionRef = collection(db, "forms");
 const submissionsCollectionRef = collection(db, "submissions");
 
+/**
+ * Method to fetch forms from firestore store forms collection order by
+ * createdAt key and based on field value like isPublished to true in this case.
+ */
 export const getFormsBasedOnFieldValue =
   (fieldName, fieldValue) => async (dispatch) => {
     dispatch(setLoader(true));
@@ -119,6 +129,10 @@ export const getFormsBasedOnFieldValue =
     }
   };
 
+/**
+ * Method to fetch form from firestore store forms collection based on form id
+ * for user responses.
+ */
 export const getCurrentForm = (formId) => async (dispatch) => {
   if (formId) {
     dispatch(setLoader(true));
@@ -154,6 +168,10 @@ export const getCurrentForm = (formId) => async (dispatch) => {
   }
 };
 
+/**
+ * Method to add user response submission to firestore store submissions
+ * collection and add ref to form for which submission is made.
+ */
 export const addSubmission = (userResponse, formId) => async (dispatch) => {
   if (formId) {
     dispatch(setLoader(true));
@@ -190,6 +208,9 @@ export const addSubmission = (userResponse, formId) => async (dispatch) => {
   }
 };
 
+/**
+ * Method to increment the field value in firestore forms collection by 1.
+ */
 export const incrementFormFieldByOne =
   (formId, incrementField) => async (dispatch) => {
     if (formId) {

@@ -2,6 +2,9 @@ import { Avatar, Box, Card, CardContent, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import Plus from "../../../../assets/plus.svg";
 
+/**
+ * Add new form card component to display as first card in admin dashboard.
+ */
 const NewFormCard = ({ handleClick }) => {
   return (
     <Card

@@ -2,6 +2,9 @@ import { Avatar, Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 import plusSvg from "../../../../assets/plus.svg";
 
+/**
+ * Element to handle render of field options to add fields components.
+ */
 const AddFieldElement = ({
   image,
   title,

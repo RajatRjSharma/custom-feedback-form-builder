@@ -6,11 +6,17 @@ import Header from "../../../components/Header";
 import SubmissionCard from "./components/SubmissionCard";
 import { getForm, getSubmissions } from "../../../store/adminSlice";
 
+/**
+ * Parent for submission card.
+ */
 const Submission = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { id } = useParams();
 
+  /**
+   * Initial form submission fetch based on param :id.
+   */
   useEffect(() => {
     if (id?.trim()) {
       dispatch(getForm(id?.trim()));

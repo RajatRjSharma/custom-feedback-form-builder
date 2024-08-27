@@ -10,6 +10,9 @@ import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 
+/**
+ * Header component for admin.
+ */
 const Header = ({
   showButtons = false,
   handlePublish = () => {},

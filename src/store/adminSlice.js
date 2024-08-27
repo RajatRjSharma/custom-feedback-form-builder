@@ -43,6 +43,9 @@ export const initialState = {
   submissions: [],
 };
 
+/**
+ * Admin slice to handle store state for admin module.
+ */
 export const adminSlice = createSlice({
   name: "admin",
   initialState,
@@ -95,9 +98,15 @@ export const {
 
 export default adminSlice.reducer;
 
+/**
+ * Firestore collections refs
+ */
 const formsCollectionRef = collection(db, "forms");
 const submissionsCollectionRef = collection(db, "submissions");
 
+/**
+ * Method to fetch forms from firestore store forms collection order by createdAt key.
+ */
 export const getForms = () => async (dispatch) => {
   dispatch(setLoader(true));
   try {
@@ -120,6 +129,9 @@ export const getForms = () => async (dispatch) => {
   }
 };
 
+/**
+ * Method to add form to firestore store forms collection.
+ */
 export const addForm = (form, navigate) => async (dispatch) => {
   dispatch(setLoader(true));
   try {
@@ -152,6 +164,9 @@ export const addForm = (form, navigate) => async (dispatch) => {
   }
 };
 
+/**
+ * Method to fetch form from firstore store forms collections based on form id.
+ */
 export const getForm = (formId) => async (dispatch) => {
   if (formId) {
     dispatch(setLoader(true));
@@ -186,6 +201,9 @@ export const getForm = (formId) => async (dispatch) => {
   }
 };
 
+/**
+ * Method to update form to firstore store forms collections based on form id.
+ */
 export const updateForm = (formId, form, navigate) => async (dispatch) => {
   if (formId) {
     dispatch(setLoader(true));
@@ -220,6 +238,10 @@ export const updateForm = (formId, form, navigate) => async (dispatch) => {
   }
 };
 
+/**
+ * Method to delete form from firstore store form collections
+ * and also delete related submission from submissions collection.
+ */
 export const deleteForm = (formId) => async (dispatch) => {
   if (formId) {
     const batch = writeBatch(db);
@@ -259,6 +281,10 @@ export const deleteForm = (formId) => async (dispatch) => {
   }
 };
 
+/**
+ * Method to fetch submissions from firstore store submissions
+ * collections order by createdAt key and based on specific form.
+ */
 export const getSubmissions = (formId) => async (dispatch) => {
   if (formId) {
     dispatch(setLoader(true));

@@ -1,6 +1,9 @@
 import { Container, Typography, Box, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
+/**
+ * Simple about us page.
+ */
 const Home = () => {
   const navigate = useNavigate();
 

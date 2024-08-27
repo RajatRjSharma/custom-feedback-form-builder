@@ -1,18 +1,18 @@
 import { useState, useEffect } from "react";
 
+/**
+ * Custom hook to get date time change event every 10 secs.
+ */
 const useDateTime = () => {
   const [dateTime, setDateTime] = useState(new Date());
 
   useEffect(() => {
-    // Function to update the current date and time
     const updateDateTime = () => {
       setDateTime(new Date());
     };
 
-    // Update date and time every half minute
     const intervalId = setInterval(updateDateTime, 10000);
 
-    // Cleanup interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
 

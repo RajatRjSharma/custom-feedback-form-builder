@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Element to wrap Question and answer display in accordion.
+ */
 const QuestionAndAnswer = ({ question, submission }) => {
   return (
     <Box

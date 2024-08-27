@@ -1,6 +1,9 @@
 import { TextField } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Will convert UTC time to local time for display.
+ */
 const convertToLocal = (utcTime) => {
   const [hours, minutes] = utcTime.split(":").map(Number);
   const date = new Date();
@@ -11,6 +14,9 @@ const convertToLocal = (utcTime) => {
   });
 };
 
+/**
+ * Will convert local time to UTC time for storage.
+ */
 const convertToUTC = (localTime) => {
   const [hours, minutes] = localTime.split(":").map(Number);
   const date = new Date();

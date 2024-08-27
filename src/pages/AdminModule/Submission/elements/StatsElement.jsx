@@ -1,6 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
+/**
+ * Element to wrap stats title and value in submission card.
+ */
 const StatsElement = ({ title, value }) => {
   return (
     <Box
