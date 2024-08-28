@@ -9,9 +9,9 @@
 - Firebase/Firestore for serverless apis/storage.
 - React-Router-Dom for routing.
 - Eslint for lint check and fix.
-- Host on Github pages & firebase hosting.
+- Host on GitHub pages & firebase hosting.
 
-## Before starting further please run npm install and add a /.env with required envs as shown in /.env.example
+## Before starting further please run npm install and add a /.env with the required envs as shown in /.env.example
 
     (Install npm packages)
     npm i / install
