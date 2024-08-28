@@ -1,6 +1,7 @@
 # Custom Feedback Form Builder (React Project)
 
-[Live Link](https://rajatrjsharma.github.io/custom-feedback-form-builder/)
+[Live Link GitHub Pages](https://rajatrjsharma.github.io/custom-feedback-form-builder/)
+[Live Link Firebase Hosting](https://custom-form-96e8b.web.app)
 
 - Vite-React frontend project.
 - Material UI for HTML Components & CSS.
@@ -8,7 +9,7 @@
 - Firebase/Firestore for serverless apis/storage.
 - React-Router-Dom for routing.
 - Eslint for lint check and fix.
-- Host on Github pages.
+- Host on Github pages & firebase hosting.
 
 ## Before starting further please run npm install and add a /.env with required envs as shown in /.env.example
 
