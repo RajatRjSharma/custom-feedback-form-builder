@@ -2,7 +2,8 @@
   "name": "custom-form",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://rajatrjsharma.github.io/custom-feedback-form-builder",
+  "_homepage": "https://rajatrjsharma.github.io/custom-feedback-form-builder",
+  "_homepage_1": "https://custom-feedback-form-builder.rajatkumarsharma.com",
   "type": "module",
   "scripts": {
     "dev": "vite",
