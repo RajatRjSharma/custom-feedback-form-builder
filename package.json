@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "_homepage": "https://rajatrjsharma.github.io/custom-feedback-form-builder",
-  "homepage": "https://custom-feedback-form-builder.rajatkumarsharma.com",
+  "_homepage_1": "https://custom-feedback-form-builder.rajatkumarsharma.com",
   "type": "module",
   "scripts": {
     "dev": "vite",
